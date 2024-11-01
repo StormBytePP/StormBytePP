@@ -16,12 +16,12 @@ namespace StormByte {
 			void 													Write();
 
 		protected:
+			Config(const std::filesystem::path&);
+			Config(std::filesystem::path&&);
 			virtual void											Initialize() = 0;
 			const std::string										GetValueString(const libconfig::Setting&) const;
 
 		private:
-			Config(const std::filesystem::path&);
-			Config(std::filesystem::path&&);
 			Config(const Config&)									= delete;
 			Config(Config&&)										= delete;
 			Config& operator=(const Config&)						= delete;
