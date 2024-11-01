@@ -39,7 +39,7 @@ endif()
 
 if (STORMBYTE_AS_SUBPROJECT)
 	target_include_directories(StormByte++
-		SYSTEM PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+		SYSTEM INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
 	)
 endif()
 target_include_directories(StormByte++
