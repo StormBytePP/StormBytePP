@@ -61,10 +61,7 @@ void Config::Initialize() {
 	try {
 		m_config.readFile(m_file.string().c_str());
 	}
-	catch(const libconfig::FileIOException&) {
-		/* Ignored */
-	}
-	catch(const libconfig::ParseException&) {
+	catch(...) {
 		/* Ignored */
 	}
 }
