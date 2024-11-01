@@ -13,23 +13,9 @@
 
 using namespace StormByte;
 
-Config::Config(const std::filesystem::path& cfg_file):m_file(cfg_file) {
-	/* Set options*/
-	m_config.setOptions(libconfig::Config::OptionFsync
-    					| libconfig::Config::OptionSemicolonSeparators
-    					| libconfig::Config::OptionColonAssignmentForGroups
-    					| libconfig::Config::OptionOpenBraceOnSeparateLine);
-	Reload();
-}
+Config::Config(const std::filesystem::path& cfg_file):m_file(cfg_file) { SetOptions(); }
 
-Config::Config(std::filesystem::path&& cfg_file):m_file(std::move(cfg_file)) {
-	/* Set options*/
-	m_config.setOptions(libconfig::Config::OptionFsync
-    					| libconfig::Config::OptionSemicolonSeparators
-    					| libconfig::Config::OptionColonAssignmentForGroups
-    					| libconfig::Config::OptionOpenBraceOnSeparateLine);
-	Reload();
-}
+Config::Config(std::filesystem::path&& cfg_file):m_file(std::move(cfg_file)) { SetOptions(); }
 
 void Config::Reload() {
 	this->Initialize();
@@ -97,4 +83,11 @@ const std::string Config::GetValueString(const libconfig::Setting& key) const {
 	}
 	#endif
 	return result;
+}
+
+void Config::SetOptions() {
+	m_config.setOptions(libconfig::Config::OptionFsync
+    					| libconfig::Config::OptionSemicolonSeparators
+    					| libconfig::Config::OptionColonAssignmentForGroups
+    					| libconfig::Config::OptionOpenBraceOnSeparateLine);
 }

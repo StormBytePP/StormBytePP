@@ -33,6 +33,7 @@ namespace StormByte {
 			static std::string										UTF8Encode(const std::wstring&);
 			static std::wstring										UTF8Decode(const std::string&);
 			#endif
+			void													SetOptions();
 
 			libconfig::Config										m_config;
 			std::filesystem::path									m_file;
