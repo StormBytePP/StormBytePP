@@ -12,13 +12,13 @@ else()
 		)
 	else()
 		add_library(config++ STATIC ${libsrc_cpp})
+		target_compile_options(config++ PRIVATE -fPIC -fvisibility=hidden $<$<COMPILE_LANGUAGE:CXX>:-fvisibility-inlines-hidden>)
 	endif()
 
     target_include_directories(config++
 		SYSTEM INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/src/lib
 	)
     target_compile_definitions(config++ PRIVATE LIBCONFIGXX_EXPORTS)
-	target_compile_options(config++ PRIVATE -fPIC)
     
     include(CheckSymbolExists)
     check_symbol_exists(uselocale "locale.h" HAVE_USELOCALE)
