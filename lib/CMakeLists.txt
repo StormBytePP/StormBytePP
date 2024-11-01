@@ -42,3 +42,6 @@ if (STORMBYTE_AS_SUBPROJECT)
 		SYSTEM PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 	)
 endif()
+target_include_directories(StormByte++
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
+)
