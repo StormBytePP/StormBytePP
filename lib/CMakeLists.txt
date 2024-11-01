@@ -24,7 +24,9 @@ set_target_properties(StormByte++ PROPERTIES
 	VERSION 		${CMAKE_PROJECT_VERSION}
 )
 target_link_libraries(StormByte++ PUBLIC config++)
-target_compile_options(StormByte++ PRIVATE -fPIC)
+if (NOT WIN32)
+	target_compile_options(StormByte++ PRIVATE -fPIC -fvisibility=hidden -fvisibility-inlines-hidden)
+endif()
 target_compile_definitions(StormByte++ PRIVATE StormByte_EXPORTS)
 
 if (STORMBYTE_AS_SUBPROJECT)
