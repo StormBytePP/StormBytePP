@@ -1,4 +1,4 @@
-#include "StormByte++/visibility.h"
+#include <StormByte++/visibility.h>
 
 #include <string>
 #include <tchar.h>

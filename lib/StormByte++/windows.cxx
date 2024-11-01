@@ -1,4 +1,4 @@
-#include "StormByte++/windows.hxx"
+#include <StormByte++/windows.hxx>
 
 #define INFO_BUFFER_SIZE 32767
 
