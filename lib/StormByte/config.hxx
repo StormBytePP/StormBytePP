@@ -8,7 +8,7 @@
 #include <memory>
 
 namespace StormByte {
-	class DLL_PUBLIC Config {
+	class STORMBYTE_PUBLIC Config {
 		public:
 			virtual ~Config()										= default;
 			

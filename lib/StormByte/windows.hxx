@@ -5,7 +5,7 @@
 #include <windows.h>
 
 namespace StormByte {
-	class DLL_PUBLIC Windows {
+	class STORMBYTE_PUBLIC Windows {
 		public:
 			static const std::string			ExpandEnvironmentVariable(const std::string&);
 			static const std::string			ExpandEnvironmentVariable(const std::wstring&);

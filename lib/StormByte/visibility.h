@@ -9,12 +9,12 @@
 
 #ifdef WINDOWS
 	#ifdef StormByte_EXPORTS
-		#define DLL_PUBLIC	__declspec(dllexport)
+		#define STORMBYTE_PUBLIC	__declspec(dllexport)
   	#else
-      	#define DLL_PUBLIC	__declspec(dllimport)
+      	#define STORMBYTE_PUBLIC	__declspec(dllimport)
   	#endif
-  	#define DLL_LOCAL
+  	#define STORMBYTE_PRIVATE
 #else
-    #define DLL_PUBLIC		__attribute__ ((visibility ("default")))
-    #define DLL_LOCAL		__attribute__ ((visibility ("hidden")))
+    #define STORMBYTE_PUBLIC		__attribute__ ((visibility ("default")))
+    #define STORMBYTE_PRIVATE		__attribute__ ((visibility ("hidden")))
 #endif
