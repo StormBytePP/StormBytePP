@@ -8,7 +8,7 @@
 #endif
 
 #ifdef WINDOWS
-	#ifdef Alchemy_EXPORTS
+	#ifdef StormByte_EXPORTS
 		#define DLL_PUBLIC	__declspec(dllexport)
   	#else
       	#define DLL_PUBLIC	__declspec(dllimport)

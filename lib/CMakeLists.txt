@@ -25,6 +25,7 @@ set_target_properties(StormByte++ PROPERTIES
 )
 target_link_libraries(StormByte++ PUBLIC config++)
 target_compile_options(StormByte++ PRIVATE -fPIC)
+target_compile_definitions(StormByte++ PRIVATE StormByte_EXPORTS)
 
 if (STORMBYTE_AS_SUBPROJECT)
 	target_include_directories(StormByte++
