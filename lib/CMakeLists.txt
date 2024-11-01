@@ -26,6 +26,7 @@ if (NOT STORMBYTE_AS_SUBPROJECT OR WIN32)
 else()
 	add_library(StormByte++ STATIC ${STORMBYTE_SOURCES})
 endif()
+target_compile_definitions(StormByte++ PRIVATE BUILDING_STORMBYTE)
 set_target_properties(StormByte++ PROPERTIES
 	LINKER_LANGUAGE CXX
 	SOVERSION		${CMAKE_PROJECT_VERSION}
@@ -35,7 +36,6 @@ target_link_libraries(StormByte++ PUBLIC config++)
 if (NOT WIN32)
 	target_compile_options(StormByte++ PRIVATE -fPIC -fvisibility=hidden -fvisibility-inlines-hidden)
 endif()
-target_compile_definitions(StormByte++ PRIVATE StormByte_EXPORTS)
 
 if (STORMBYTE_AS_SUBPROJECT)
 	target_include_directories(StormByte++
