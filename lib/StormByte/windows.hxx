@@ -17,5 +17,5 @@ namespace StormByte {
 			Windows& operator=(const Windows&)	= delete;
 			Windows& operator=(Windows&)		= delete;
 			~Windows()							= delete;
-	}
+	};
 }

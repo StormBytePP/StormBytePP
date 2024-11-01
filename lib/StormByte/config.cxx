@@ -74,9 +74,9 @@ const std::string Config::GetValueString(const libconfig::Setting& key) const {
 	*/
 	std::string result { key.c_str() };
 	#ifdef WINDOWS
-	if (result && result[0] == '%' && result[result.length() - 1] == '%') {
+	if (!result.empty() && result[0] == '%' && result[result.length() - 1] == '%') {
 		std::string expanded = ExpandEnvironmentVariable(result);
-		result = expanded ? std::move(expanded) : result;
+		result = expanded.empty() ? result : std::move(expanded);
 	}
 	#endif
 	return result;
