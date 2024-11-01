@@ -28,6 +28,6 @@ target_compile_options(StormByte++ PRIVATE -fPIC)
 
 if (STORMBYTE_AS_SUBPROJECT)
 	target_include_directories(StormByte++
-		SYSTEM INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
+		SYSTEM PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 	)
 endif()
