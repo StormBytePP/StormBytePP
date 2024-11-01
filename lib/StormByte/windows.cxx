@@ -1,7 +1,5 @@
 #include "windows.hxx"
 
-#include <windows.h>
-#include <tchar.h>
 #define INFO_BUFFER_SIZE 32767
 
 using namespace StormByte;

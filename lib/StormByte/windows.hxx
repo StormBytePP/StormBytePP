@@ -1,6 +1,8 @@
 #include "visibility.h"
 
 #include <string>
+#include <tchar.h>
+#include <windows.h>
 
 namespace StormByte {
 	class DLL_PUBLIC Windows {
@@ -9,7 +11,7 @@ namespace StormByte {
 			static const std::string			ExpandEnvironmentVariable(const std::wstring&);
 			static std::string					UTF8Encode(const std::wstring&);
 			static std::wstring					UTF8Decode(const std::string&);
-			
+
 		private:
 			Windows()							= delete;
 			Windows(const Windows&)				= delete;
