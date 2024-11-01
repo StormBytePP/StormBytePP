@@ -1,8 +1,8 @@
-#include "windows.hxx"
+#include "StormByte++/windows.hxx"
 
 #define INFO_BUFFER_SIZE 32767
 
-using namespace StormByte;
+using namespace StormBytePP;
 
 const std::string Windows::ExpandEnvironmentVariable(const std::string& var) {
 	return ExpandEnvironmentVariable(UTF8Decode(var));

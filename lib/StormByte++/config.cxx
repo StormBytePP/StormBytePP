@@ -1,4 +1,4 @@
-#include "config.hxx"
+#include "StormByte++/config.hxx"
 #include <libconfig.h++>
 
 #ifdef LINUX
@@ -11,7 +11,7 @@
 #define INFO_BUFFER_SIZE 32767
 #endif
 
-using namespace StormByte;
+using namespace StormBytePP;
 
 Config::Config(const std::filesystem::path& cfg_file):m_file(cfg_file) { SetOptions(); }
 

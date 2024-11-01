@@ -1,13 +1,13 @@
 #pragma once
 
-#include "StormByte/visibility.h"
+#include "StormByte++/visibility.h"
 
 #include <filesystem>
 #include <libconfig.h++>
 #include <map>
 #include <memory>
 
-namespace StormByte {
+namespace StormBytePP {
 	class STORMBYTE_PUBLIC Config {
 		public:
 			virtual ~Config()										= default;

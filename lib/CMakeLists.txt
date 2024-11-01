@@ -1,17 +1,17 @@
 include(GNUInstallDirs)
 set(STORMBYTE_HEADERS
-	${STORMBYTE_DIR}/lib/StormByte/config.hxx
-	${STORMBYTE_DIR}/lib/StormByte/visibility.h
+	${STORMBYTE_DIR}/lib/StormByte++/config.hxx
+	${STORMBYTE_DIR}/lib/StormByte++/visibility.h
 )
 set(STORMBYTE_SOURCES
-	${STORMBYTE_DIR}/lib/StormByte/config.cxx
+	${STORMBYTE_DIR}/lib/StormByte++/config.cxx
 )
 if (WIN32)
 	list(APPEND ${STORMBYTE_HEADERS}
-		${STORMBYTE_DIR}/lib/StormByte/windows.hxx
+		${STORMBYTE_DIR}/lib/StormByte++/windows.hxx
 	)
 	list(APPEND ${STORMBYTE_SOURCES}
-		${STORMBYTE_DIR}/lib/StormByte/windows.cxx
+		${STORMBYTE_DIR}/lib/StormByte++/windows.cxx
 	)
 endif()
 

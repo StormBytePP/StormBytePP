@@ -1,10 +1,10 @@
-#include "visibility.h"
+#include "StormByte++/visibility.h"
 
 #include <string>
 #include <tchar.h>
 #include <windows.h>
 
-namespace StormByte {
+namespace StormBytePP {
 	class STORMBYTE_PUBLIC Windows {
 		public:
 			static const std::string			ExpandEnvironmentVariable(const std::string&);
