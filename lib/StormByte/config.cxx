@@ -32,19 +32,6 @@ Config::Config(std::filesystem::path&& cfg_file):m_file(std::move(cfg_file)) {
 }
 
 void Config::Reload() {
-	/* Clear contents */
-	m_config.clear();
-
-	try {
-		m_config.readFile(m_file.string().c_str());
-	}
-	catch(const libconfig::FileIOException&) {
-		/* Ignored */
-	}
-	catch(const libconfig::ParseException&) {
-		/* Ignored */
-	}
-
 	this->Initialize();
 }
 
@@ -80,6 +67,21 @@ std::wstring Config::UTF8Decode(const std::string& str) {
 	return wstrTo;
 }
 #endif
+
+void Config::Initialize() {
+	/* Clear contents */
+	m_config.clear();
+
+	try {
+		m_config.readFile(m_file.string().c_str());
+	}
+	catch(const libconfig::FileIOException&) {
+		/* Ignored */
+	}
+	catch(const libconfig::ParseException&) {
+		/* Ignored */
+	}
+}
 
 const std::string Config::GetValueString(const libconfig::Setting& key) const {
 	/* NOTES:

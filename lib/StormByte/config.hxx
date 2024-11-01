@@ -18,7 +18,7 @@ namespace StormByte {
 		protected:
 			Config(const std::filesystem::path&);
 			Config(std::filesystem::path&&);
-			virtual void											Initialize() = 0;
+			virtual void											Initialize();
 			const std::string										GetValueString(const libconfig::Setting&) const;
 
 		private:
