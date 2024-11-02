@@ -17,7 +17,7 @@ else()
 	)
 
 	add_library(config STATIC ${libconfigsrc})
-	
+
 	include(CheckSymbolExists)
     check_symbol_exists(uselocale "locale.h" HAVE_USELOCALE)
     check_symbol_exists(newlocale "locale.h" HAVE_NEWLOCALE)
@@ -53,7 +53,7 @@ else()
 	target_link_libraries(config++ PRIVATE config)
 
     target_include_directories(config++
-		SYSTEM INTERFACE ${LIBCONFIG_DIR}/src/lib
+		SYSTEM INTERFACE ${LIBCONFIG_DIR}
 	)
     target_compile_definitions(config++ PRIVATE LIBCONFIGXX_EXPORTS)
 
@@ -66,7 +66,7 @@ else()
     endif()
 
     if(WIN32)
-        target_link_libraries(config++ shlwapi)
+        target_link_libraries(config++ PRIVATE shlwapi)
     endif()
 
 endif()
