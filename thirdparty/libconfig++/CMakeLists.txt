@@ -32,7 +32,10 @@ else()
     target_include_directories(config++
 		SYSTEM INTERFACE ${LIBCONFIG_DIR}
 	)
-    target_compile_definitions(config++ PRIVATE LIBCONFIG_EXPORTS LIBCONFIGXX_EXPORTS)
+    target_compile_definitions(config++
+		PRIVATE LIBCONFIG_EXPORTS
+		PRIVATE LIBCONFIGXX_EXPORTS
+	)
 
     if(MSVC)
 		target_compile_definitions(config++
