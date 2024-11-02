@@ -58,11 +58,19 @@ else()
     target_compile_definitions(config++ PRIVATE LIBCONFIGXX_EXPORTS)
 
     if(MSVC)
-        target_compile_definitions(config++
-            PRIVATE
-                _CRT_SECURE_NO_DEPRECATE
-                YY_NO_UNISTD_H
-                YY_USE_CONST )
+	target_compile_definitions(config
+		PRIVATE
+			_CRT_SECURE_NO_DEPRECATE
+			YY_NO_UNISTD_H
+			YY_USE_CONST
+	)
+
+	target_compile_definitions(config++
+		PRIVATE
+			_CRT_SECURE_NO_DEPRECATE
+			YY_NO_UNISTD_H
+			YY_USE_CONST
+	)
     endif()
 
     if(WIN32)
