@@ -39,7 +39,7 @@ else()
     endif()
 
 	if (WIN32)
-    	add_library(config++ SHARED ${libconfigppsrc})
+    	add_library(config++ SHARED ${libconfigsrc} ${libconfigppsrc})
 		install(TARGETS config++
 			ARCHIVE 		DESTINATION ${CMAKE_INSTALL_LIBDIR}
 			LIBRARY 		DESTINATION ${CMAKE_INSTALL_LIBDIR}
