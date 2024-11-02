@@ -16,8 +16,6 @@ else()
 			${LIBCONFIG_DIR}/libconfigcpp.cc
 	)
 
-	add_library(config STATIC ${libconfigsrc})
-
 	include(CheckSymbolExists)
     check_symbol_exists(uselocale "locale.h" HAVE_USELOCALE)
     check_symbol_exists(newlocale "locale.h" HAVE_NEWLOCALE)
@@ -39,7 +37,10 @@ else()
     endif()
 
 	if (WIN32)
+		#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
     	add_library(config++ SHARED ${libconfigsrc} ${libconfigppsrc})
+		target_compile_definitions(config++ PRIVATE _WIN32)
+		#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS FALSE)
 		install(TARGETS config++
 			ARCHIVE 		DESTINATION ${CMAKE_INSTALL_LIBDIR}
 			LIBRARY 		DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -50,27 +51,19 @@ else()
 		target_compile_options(config PRIVATE -fPIC -fvisibility=hidden $<$<COMPILE_LANGUAGE:CXX>:-fvisibility-inlines-hidden>)
 		target_compile_options(config++ PRIVATE -fPIC -fvisibility=hidden $<$<COMPILE_LANGUAGE:CXX>:-fvisibility-inlines-hidden>)
 	endif()
-	target_link_libraries(config++ PRIVATE config)
 
     target_include_directories(config++
 		SYSTEM INTERFACE ${LIBCONFIG_DIR}
 	)
-    target_compile_definitions(config++ PRIVATE LIBCONFIGXX_EXPORTS)
+    target_compile_definitions(config++ PRIVATE LIBCONFIG_EXPORTS LIBCONFIGXX_EXPORTS)
 
     if(MSVC)
-	target_compile_definitions(config
-		PRIVATE
-			_CRT_SECURE_NO_DEPRECATE
-			YY_NO_UNISTD_H
-			YY_USE_CONST
-	)
-
-	target_compile_definitions(config++
-		PRIVATE
-			_CRT_SECURE_NO_DEPRECATE
-			YY_NO_UNISTD_H
-			YY_USE_CONST
-	)
+		target_compile_definitions(config++
+			PRIVATE
+				_CRT_SECURE_NO_DEPRECATE
+				YY_NO_UNISTD_H
+				YY_USE_CONST
+		)
     endif()
 
     if(WIN32)
