@@ -17,11 +17,13 @@ else()
 		FetchContent_MakeAvailable(sqlite3)
 	endif()
 	
-	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 	if (WIN32)
+		set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 		add_library(sqlite3 SHARED "${sqlite3_SOURCE_DIR}/sqlite3.c")
+		set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS FALSE)
 	else()
 		add_library(sqlite3 STATIC "${sqlite3_SOURCE_DIR}/sqlite3.c")
+	endif()
 	target_include_directories(sqlite3
 		SYSTEM INTERFACE ${sqlite3_SOURCE_DIR}
 		PRIVATE ${sqlite3_SOURCE_DIR}
@@ -34,5 +36,4 @@ else()
 	endif()
   
 	message(STATUS "Found SQLite3: bundled ${sqlite3_VERSION}")
-	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS FALSE)
 endif()
