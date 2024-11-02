@@ -1,4 +1,4 @@
-file(CONFIGURE OUTPUT ${CMAKE_BINARY_DIR}/generated/version.h CONTENT "
+file(CONFIGURE OUTPUT ${CMAKE_BINARY_DIR}/generated/StormByte++.h CONTENT "
 
 #pragma once
 
