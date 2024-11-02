@@ -34,8 +34,6 @@ if (STORMBYTE_AS_SUBPROJECT)
 	target_include_directories(StormByte++
 		SYSTEM INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
 	)
-	target_link_libraries(StormByte++ PRIVATE sqlite3)
-else()
 	target_link_libraries(StormByte++ PUBLIC sqlite3)
 endif()
 target_include_directories(StormByte++
