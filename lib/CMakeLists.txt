@@ -7,14 +7,6 @@ set(STORMBYTE_SOURCES
 	${STORMBYTE_DIR}/lib/StormByte++/config.cxx
 	#${STORMBYTE_DIR}/lib/StormByte++/sqlite3.cxx
 )
-if (WIN32)
-	list(APPEND ${STORMBYTE_HEADERS}
-		${STORMBYTE_DIR}/lib/StormByte++/windows.hxx
-	)
-	list(APPEND ${STORMBYTE_SOURCES}
-		${STORMBYTE_DIR}/lib/StormByte++/windows.cxx
-	)
-endif()
 
 if (NOT STORMBYTE_AS_SUBPROJECT OR WIN32)
 	add_library(StormByte++ SHARED ${STORMBYTE_SOURCES} ${STORMBYTE_HEADERS})
