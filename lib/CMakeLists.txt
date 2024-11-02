@@ -5,6 +5,7 @@ set(STORMBYTE_HEADERS
 )
 set(STORMBYTE_SOURCES
 	${STORMBYTE_DIR}/lib/StormByte++/config.cxx
+	${STORMBYTE_DIR}/lib/StormByte++/sqlite3.cxx
 )
 if (WIN32)
 	list(APPEND ${STORMBYTE_HEADERS}
@@ -41,6 +42,9 @@ if (STORMBYTE_AS_SUBPROJECT)
 	target_include_directories(StormByte++
 		SYSTEM INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
 	)
+	target_link_libraries(StormByte++ PRIVATE sqlite3)
+else()
+	target_link_libraries(StormByte++ PUBLIC sqlite3)
 endif()
 target_include_directories(StormByte++
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
