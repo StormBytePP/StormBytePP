@@ -21,6 +21,11 @@ else()
 		set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 		add_library(sqlite3 SHARED "${sqlite3_SOURCE_DIR}/sqlite3.c")
 		set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS FALSE)
+		install(TARGETS sqlite3
+			ARCHIVE 		DESTINATION ${CMAKE_INSTALL_LIBDIR}
+			LIBRARY 		DESTINATION ${CMAKE_INSTALL_LIBDIR}
+			RUNTIME 		DESTINATION ${CMAKE_INSTALL_BINDIR}
+		)
 	else()
 		add_library(sqlite3 STATIC "${sqlite3_SOURCE_DIR}/sqlite3.c")
 	endif()
