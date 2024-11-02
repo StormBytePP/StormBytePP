@@ -5,7 +5,7 @@ set(STORMBYTE_HEADERS
 )
 set(STORMBYTE_SOURCES
 	${STORMBYTE_DIR}/lib/StormByte++/config.cxx
-	${STORMBYTE_DIR}/lib/StormByte++/sqlite3.cxx
+	#${STORMBYTE_DIR}/lib/StormByte++/sqlite3.cxx
 )
 if (WIN32)
 	list(APPEND ${STORMBYTE_HEADERS}
