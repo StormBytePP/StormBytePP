@@ -1,2 +1,2 @@
-# StormByte++
+# StormByte
 StormByte C++ library

@@ -3,10 +3,10 @@ set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 set(CMAKE_CXX_STANDARD_REQUIRED 20)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-project("StormByte++"
-	VERSION 0.0.3
+project("StormByte"
+	VERSION 0.0.5
 	DESCRIPTION "The conveninence StormByte C++ library"
-	HOMEPAGE_URL "https://github.com/StormBytePP/StormBytePP"
+	HOMEPAGE_URL "https://github.com/StormBytePP/StormByte"
 )
 
 set(STORMBYTE_DIR ${PROJECT_SOURCE_DIR})

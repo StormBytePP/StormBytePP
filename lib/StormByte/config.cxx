@@ -1,4 +1,4 @@
-#include <StormByte++/config.hxx>
+#include <StormByte/config.hxx>
 #include <libconfig.h++>
 
 #ifdef LINUX

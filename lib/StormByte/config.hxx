@@ -1,6 +1,6 @@
 #pragma once
 
-#include <StormByte++/visibility.h>
+#include <StormByte/visibility.h>
 
 #include <filesystem>
 #include <libconfig.h++>
