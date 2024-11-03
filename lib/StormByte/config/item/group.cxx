@@ -39,6 +39,10 @@ const int& Group::AsInteger() const {
 }
 
 std::shared_ptr<Item> Group::Add(const std::string& name, const Type& type) {
+	if (find_if(name.begin(), name.end(), 
+        [](char c) { return !isalnum(c); }) != name.end())
+		throw InvalidName(name);
+
 	std::shared_ptr<Item> item;
 	switch (type) {
 		case Type::Group:

@@ -8,5 +8,8 @@ Exception(method + " conversion failed for " + item.GetName() + "(" + item.GetTy
 ValueFailure::ValueFailure(const Item& item, const Item::Type& type):
 Exception("Try to add/set " + Item::GetTypeAsString(type) + " value to " + item.GetName() + " which is of type " + item.GetTypeAsString()) {}
 
+InvalidName::InvalidName(const std::string& name):
+Exception("Invalid name " + name + " given as identifier, only alfanumeric is allowed") {}
+
 FileIOError::FileIOError(const std::string& file, const std::string& operation):
 Exception("File " + file + " can not be opened for " + operation) {}

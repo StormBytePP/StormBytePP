@@ -20,6 +20,14 @@ namespace StormByte::Config {
 			~ValueFailure() noexcept override				= default;
 	};
 
+	class STORMBYTE_PUBLIC InvalidName final: public Exception {
+		public:
+			InvalidName(const std::string&);
+			InvalidName(const InvalidName&)				= default;
+			InvalidName& operator=(const InvalidName&)	= default;
+			~InvalidName() noexcept override			= default;
+	};
+
 	class STORMBYTE_PUBLIC FileIOError final: public Exception {
 		public:
 			FileIOError(const std::string&, const std::string&);
