@@ -19,16 +19,18 @@ const std::string Item::GetTypeAsString() const noexcept {
 }
 
 const std::string Item::GetTypeAsString(const Type& t) noexcept {
+	std::string str;
 	switch(t) {
 		case Type::Group:
-			return "Group";
+			str = "Group";
 
 		case Type::String:
-			return "String";
+			str = "String";
 
 		case Type::Integer:
-			return "Integer";
+			str = "Integer";
 	}
+	return str;
 }
 
 std::string Item::Indent(const int& level) const noexcept {
