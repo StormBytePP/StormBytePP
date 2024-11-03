@@ -1,5 +1,11 @@
 #pragma once
 
+#include <StormByte/Features.h>
+
+#if !(STORMBYTE_SQLITE == ON)
+	#error "SQLite support have been disabled in compile time"
+#endif
+
 #include <StormByte/visibility.h>
 
 #include <filesystem>

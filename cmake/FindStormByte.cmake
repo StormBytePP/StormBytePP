@@ -13,9 +13,17 @@ if(StormByte_INCLUDE_DIR)
          LIMIT_COUNT 1)
     string(REGEX MATCH "[0-9]+\\.[0-9]+\\.[0-9]+"
            StormByte_VERSION "${_ver_line}")
+	file(STRINGS ${StormByte_INCLUDE_DIR}/StormByte/Features.h _sqlite_feature
+		   REGEX "^#define STORMBYTE_SQLITE *ON|OFF"
+		   LIMIT_COUNT 1)
+	string(REGEX MATCH "ON|OFF"
+			 StormByte_SQLITE3_FEATURE "${_sqlite_feature}")
     unset(_ver_line)
 	set(StormByte_FOUND TRUE)
-	set(StormByte_LIBRARIES sqlite3)
+	set(StormByte_LIBRARIES "")
+	if (StormByte_SQLITE3_FEATURE)
+		list(APPEND StormByte_LIBRARIES sqlite3)
+	endif()
 endif()
 
 include(FindPackageHandleStandardArgs)

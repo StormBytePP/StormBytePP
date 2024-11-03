@@ -9,6 +9,7 @@ set(STORMBYTE_HEADERS
 	${STORMBYTE_DIR}/lib/StormByte/config/item/value/integer.hxx
 	${STORMBYTE_DIR}/lib/StormByte/config/item/value/string.hxx
 	${STORMBYTE_DIR}/lib/StormByte/exception.hxx
+	${STORMBYTE_DIR}/lib/StormByte/sqlite3.hxx
 	${STORMBYTE_DIR}/lib/StormByte/visibility.h
 )
 set(STORMBYTE_SOURCES
@@ -21,6 +22,10 @@ set(STORMBYTE_SOURCES
 	${STORMBYTE_DIR}/lib/StormByte/config/item/value/integer.cxx
 	${STORMBYTE_DIR}/lib/StormByte/config/item/value/string.cxx
 	${STORMBYTE_DIR}/lib/StormByte/exception.cxx
+)
+
+# SQLite support
+set(STORMBYTE_SQLITE_SOURCES
 	${STORMBYTE_DIR}/lib/StormByte/sqlite3.cxx
 )
 
@@ -31,10 +36,11 @@ if (NOT STORMBYTE_AS_SUBPROJECT OR WIN32)
 		LIBRARY 		DESTINATION "${CMAKE_INSTALL_LIBDIR}/StormByte"
 		RUNTIME 		DESTINATION ${CMAKE_INSTALL_BINDIR}
 	)
-	install(FILES ${STORMBYTE_HEADERS} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/StormByte")
-	install(FILES ${CMAKE_BINARY_DIR}/generated/StormByte.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/StormByte")
 	if (NOT WIN32)
-		install(FILES ${STORMBYTE_CMAKE_DIR}/FindStormByte.cmake DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/cmake/Modules")
+		install(FILES ${STORMBYTE_HEADERS} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/StormByte")
+		install(FILES ${CMAKE_BINARY_DIR}/generated/StormByte.h 			DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/StormByte")
+		install(FILES ${CMAKE_BINARY_DIR}/generated/StormByte/Features.h 	DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/StormByte")
+		install(FILES ${STORMBYTE_CMAKE_DIR}/FindStormByte.cmake 			DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/cmake/Modules")
 	endif()
 else()
 	add_library(StormByte STATIC ${STORMBYTE_SOURCES})
@@ -55,7 +61,13 @@ if (STORMBYTE_AS_SUBPROJECT)
 		SYSTEM INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
 	)
 endif()
-target_link_libraries(StormByte
-	PUBLIC sqlite3
-)
+if (ENABLE_SQLITE)
+	target_link_libraries(StormByte PUBLIC sqlite3)
+endif()
 target_include_directories(StormByte PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
+# Enable features
+target_include_directories(StormByte SYSTEM PRIVATE ${CMAKE_BINARY_DIR}/generated)
+if (ENABLE_SQLITE)
+	target_sources(StormByte PRIVATE ${STORMBYTE_SQLITE_SOURCES})
+endif()
