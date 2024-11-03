@@ -10,7 +10,6 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  # NOTES:
   build_GCC_all_ON:
     runs-on: ubuntu-24.04
 
@@ -25,7 +24,7 @@ jobs:
 
     - name: Install dependencies
       run: sudo apt install -y cmake libsqlite3-dev
-  
+
     - name: Configure CMake All ON
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DENABLE_SQLITE=ON -DWITH_SYSTEM_SQLITE=ON
 
@@ -34,22 +33,22 @@ jobs:
 
   build_GCC_all_ON_static:
     runs-on: ubuntu-24.04
-	
+
     steps:
     - name: Checkout repository and submodules
       uses: actions/checkout@v3
       with:
         submodules: 'true'
-	
+
     - name: Update repository
       run: sudo apt update
 
     - name: Install dependencies
       run: sudo apt install -y cmake libsqlite3-dev
-	  
+
     - name: Configure CMake All ON
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DENABLE_SQLITE=ON -DWITH_SYSTEM_SQLITE=OFF
-	
+
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
@@ -64,7 +63,7 @@ jobs:
 
     - name: Update repository
       run: sudo apt update
-  
+
     - name: Install dependencies
       run: sudo apt install -y cmake
 
@@ -130,11 +129,9 @@ jobs:
 
     - name: Install dependencies
       run: sudo apt install -y cmake
-      
+
     - name: Configure CMake All OFF
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DENABLE_SQLITE=OFF
 
     - name: Build with Clang
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} 
-
-      
