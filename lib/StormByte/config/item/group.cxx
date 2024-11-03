@@ -3,6 +3,7 @@
 #include <StormByte/config/item/value/string.hxx>
 #include <StormByte/config/exception.hxx>
 
+#include <algorithm>
 #include <sstream>
 
 using namespace StormByte::Config;
@@ -41,7 +42,7 @@ const int& Group::AsInteger() const {
 }
 
 std::shared_ptr<Item> Group::Add(const std::string& name, const Type& type) {
-	if (find_if(name.begin(), name.end(), 
+	if (std::find_if(name.begin(), name.end(), 
         [](char c) { return !(isalnum(c) || c == '_'); }) != name.end())
 		throw InvalidName(name);
 
