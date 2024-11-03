@@ -25,9 +25,11 @@ else()
 			RUNTIME 		DESTINATION ${CMAKE_INSTALL_BINDIR}
 		)
 	else()
-		add_library(config++ STATIC ${libconfigppsrc})
+		add_library(config++ STATIC ${libconfigsrc} ${libconfigppsrc})
 		target_compile_options(config++ PRIVATE -fPIC -fvisibility=hidden $<$<COMPILE_LANGUAGE:CXX>:-fvisibility-inlines-hidden>)
 	endif()
+
+	target_compile_definitions(config++ PRIVATE LIBCONFIG_EXPORTS LIBCONFIGXX_EXPORTS)
 
     target_include_directories(config++
 		SYSTEM INTERFACE ${LIBCONFIG_DIR}
