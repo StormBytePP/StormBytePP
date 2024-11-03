@@ -11,7 +11,7 @@
 #define INFO_BUFFER_SIZE 32767
 #endif
 
-using namespace StormBytePP;
+using namespace StormByte;
 
 Config::Config(const std::filesystem::path& cfg_file):m_file(cfg_file) { SetOptions(); }
 

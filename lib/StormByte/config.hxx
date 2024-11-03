@@ -7,7 +7,7 @@
 #include <map>
 #include <memory>
 
-namespace StormBytePP {
+namespace StormByte {
 	class STORMBYTE_PUBLIC Config {
 		public:
 			virtual ~Config()										= default;

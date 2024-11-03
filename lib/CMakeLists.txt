@@ -5,7 +5,7 @@ set(STORMBYTE_HEADERS
 )
 set(STORMBYTE_SOURCES
 	${STORMBYTE_DIR}/lib/StormByte/config.cxx
-	#${STORMBYTE_DIR}/lib/StormByte/sqlite3.cxx
+	${STORMBYTE_DIR}/lib/StormByte/sqlite3.cxx
 )
 
 if (NOT STORMBYTE_AS_SUBPROJECT OR WIN32)
@@ -17,6 +17,9 @@ if (NOT STORMBYTE_AS_SUBPROJECT OR WIN32)
 	)
 	install(FILES ${STORMBYTE_HEADERS} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/StormByte")
 	install(FILES ${CMAKE_BINARY_DIR}/generated/StormByte.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/StormByte")
+	if (NOT WIN32)
+		install(FILES ${STORMBYTE_CMAKE_DIR}/FindStormByte.cmake DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/cmake/Modules")
+	endif()
 else()
 	add_library(StormByte STATIC ${STORMBYTE_SOURCES})
 endif()

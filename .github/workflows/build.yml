@@ -25,10 +25,10 @@ jobs:
       run: sudo apt update
 
     - name: Install dependencies
-      run: sudo apt install -y cmake
+      run: sudo apt install -y cmake libsqlite3-dev
   
     - name: Configure CMake All ON
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DWITH_SYSTEM_CONFIG++=OFF
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DWITH_SYSTEM_CONFIG++=OFF -DWITH_SYSTEM_SQLITE=ON
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
@@ -49,7 +49,7 @@ jobs:
       run: sudo apt install -y cmake
 
     - name: Configure CMake All OFF
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DWITH_SYSTEM_CONFIG++=OFF
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DWITH_SYSTEM_CONFIG++=OFF -DWITH_SYSTEM_SQLITE=OFF
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} 
@@ -67,10 +67,10 @@ jobs:
       run: sudo apt update
 
     - name: Install dependencies
-      run: sudo apt install -y cmake
+      run: sudo apt install -y cmake libsqlite3-dev
   
     - name: Configure CMake All ON
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DWITH_SYSTEM_CONFIG++=OFF
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DWITH_SYSTEM_CONFIG++=OFF -DWITH_SYSTEM_SQLITE=ON
 
     - name: Build with Clang
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
@@ -91,7 +91,7 @@ jobs:
       run: sudo apt install -y cmake
       
     - name: Configure CMake All OFF
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DWITH_SYSTEM_CONFIG++=OFF
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DWITH_SYSTEM_CONFIG++=OFF -DWITH_SYSTEM_SQLITE=OFF
 
     - name: Build with Clang
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} 
