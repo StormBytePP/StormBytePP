@@ -14,9 +14,10 @@ namespace StormByte::Config {
 				Item::Type s_type;
 				std::string s_content;
 			};
+			enum class GroupMode { Root, Recursive };
 
-			Parser(std::ifstream&&);
-			Parser(std::istringstream&&);
+			Parser(std::ifstream&&, const GroupMode& gm = GroupMode::Root);
+			Parser(std::istringstream&&, const GroupMode& gm = GroupMode::Recursive);
 			Parser(const Parser&) 					= delete;
 			Parser(Parser&&) noexcept				= delete;
 			Parser& operator=(const Parser&)		= delete;
@@ -28,7 +29,6 @@ namespace StormByte::Config {
 			std::vector<Content> Parse();
 
 		private:
-			enum class GroupMode { Root, Recursive };
 			void consume_whitespaces();
 			std::string parse_name();
 			std::string parse_integer_content(const std::string& name);

@@ -3,9 +3,9 @@
 
 using namespace StormByte::Config;
 
-Parser::Parser(std::ifstream&& stream):m_stream(stream), m_group_mode(Parser::GroupMode::Root) {}
+Parser::Parser(std::ifstream&& stream, const GroupMode& gm):m_stream(stream), m_group_mode(gm) {}
 
-Parser::Parser(std::istringstream&& stream):m_stream(stream), m_group_mode(Parser::GroupMode::Recursive) {}
+Parser::Parser(std::istringstream&& stream, const GroupMode& gm):m_stream(stream), m_group_mode(gm) {}
 
 std::vector<Parser::Content> Parser::Parse() {
 	std::vector<Content> parsed_content;

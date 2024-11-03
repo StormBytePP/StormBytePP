@@ -34,14 +34,13 @@ std::shared_ptr<Item> File::Add(const std::string& name, const Item::Type& type)
 void File::Clear() noexcept { m_root = std::make_unique<Group>("root"); }
 
 void File::Read() {
-	/* This is gonna be a bit hard... */
 	Clear();
 	std::ifstream file;
 	file.open(m_file, std::ios::in);
 	if (file.fail())
 		throw FileIOError(m_file.string(), "read");
 	try {
-		Parser parser(std::move(file));
+		Parser parser(std::move(file), Parser::GroupMode::Root);
 		std::vector<Parser::Content> parsed_content = parser.Parse();
 		Add(m_root.get(), std::move(parsed_content));
 	}
@@ -49,10 +48,25 @@ void File::Read() {
 		throw pe;
 	}
 
-	// Trick for debug
-	m_file = "/tmp/new.cfg";
-	Write();
+	this->Check();
 }
+
+void File::ReadFromString(const std::string& cfg_str) {
+	Clear();
+	try {
+		std::istringstream is(cfg_str);
+		Parser parser(std::move(is), Parser::GroupMode::Root);
+		std::vector<Parser::Content> parsed_content = parser.Parse();
+		Add(m_root.get(), std::move(parsed_content));
+	}
+	catch (const ParseError& pe) {
+		throw pe;
+	}
+
+	this->Check();
+}
+
+void File::Check() {}
 
 void File::Write() {
 	std::ofstream file;
@@ -103,7 +117,7 @@ void File::Add(Item* parent, Parser::Content&& content) {
 		case Item::Type::Group:
 			try {
 				std::istringstream is(std::move(content.s_content));
-				Parser group_parser(std::move(is));
+				Parser group_parser(std::move(is), Parser::GroupMode::Recursive);
 				Add(child.get(), group_parser.Parse());
 			}
 			catch(const ParseError& pe) {
