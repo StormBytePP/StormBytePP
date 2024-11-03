@@ -57,13 +57,7 @@ std::wstring Config::UTF8Decode(const std::string& str) {
 void Config::Initialize() {
 	/* Clear contents */
 	m_config.clear();
-
-	try {
-		m_config.readFile(m_file.string().c_str());
-	}
-	catch(...) {
-		/* Ignored */
-	}
+	m_config.readFile(m_file.string().c_str());
 }
 
 const std::string Config::GetValueString(const libconfig::Setting& key) const {
