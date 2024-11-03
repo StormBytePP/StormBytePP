@@ -13,12 +13,13 @@ if(StormByte_INCLUDE_DIR)
          LIMIT_COUNT 1)
     string(REGEX MATCH "[0-9]+\\.[0-9]+\\.[0-9]+"
            StormByte_VERSION "${_ver_line}")
+	unset(_ver_line)
 	file(STRINGS ${StormByte_INCLUDE_DIR}/StormByte/Features.h _sqlite_feature
 		   REGEX "^#define STORMBYTE_SQLITE *ON|OFF"
 		   LIMIT_COUNT 1)
 	string(REGEX MATCH "ON|OFF"
 			 StormByte_SQLITE3_FEATURE "${_sqlite_feature}")
-    unset(_ver_line)
+	unset(_sqlite_feature)
 	set(StormByte_FOUND TRUE)
 	set(StormByte_LIBRARIES "")
 	if (StormByte_SQLITE3_FEATURE)
@@ -28,7 +29,7 @@ endif()
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(StormByte
-    REQUIRED_VARS StormByte_INCLUDE_DIR StormByte_LIBRARY StormByte_LIBRARIES
+    REQUIRED_VARS StormByte_INCLUDE_DIR StormByte_LIBRARY StormByte_SQLITE3_FEATURE
     VERSION_VAR StormByte_VERSION)
 
 # Create the imported target
