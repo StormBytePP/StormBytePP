@@ -14,7 +14,7 @@ set(STORMBYTE_CMAKE_DIR ${PROJECT_SOURCE_DIR}/cmake)
 list(APPEND CMAKE_MODULE_PATH ${STORMBYTE_CMAKE_DIR})
 
 if(MSVC)
-	add_compile_options(/wd4251 /std:c++20 /EHsc)
+	add_compile_options(/wd4251 /std:c++20 /EHsc /MD)
 	add_compile_definitions(UNICODE) # Create problems if disabled
 else()
 	set(CMAKE_CXX_FLAGS_DEBUG "-pipe -g -ggdb -Wall -Wextra -Wno-unneeded-internal-declaration -Wnon-virtual-dtor -pedantic -pedantic-errors -O0")
