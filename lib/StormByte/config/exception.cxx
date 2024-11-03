@@ -13,3 +13,15 @@ Exception("Invalid name " + name + " given as identifier, only alfanumeric is al
 
 FileIOError::FileIOError(const std::string& file, const std::string& operation):
 Exception("File " + file + " can not be opened for " + operation) {}
+
+ParseError::ParseError(const std::string& fragment):
+Exception("Parse error near " + fragment) {}
+
+ParseError::ParseError(const std::string& name, const std::string& fragment):
+Exception("Parse error on " + name + " near " + fragment) {}
+
+ParseError::ParseError(const std::string& name, const std::string& fragment, const std::string& reason):
+Exception("Parse error (" + reason + ") on " + name + " near " + fragment) {}
+
+ItemNotFound::ItemNotFound(const std::string& name):
+Exception("Item " + name + " do not exist") {}

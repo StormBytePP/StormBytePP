@@ -1,13 +1,13 @@
 #pragma once
 
-#include <StormByte/visibility.h>
+#include <StormByte/config/parser.hxx>
+#include <StormByte/config/item/group.hxx>
 
 #include <filesystem>
 #include <memory>
 #include <string>
 
 namespace StormByte::Config {
-	class Group;
 	class STORMBYTE_PUBLIC File {
 		public:
 			File(const std::filesystem::path&);
@@ -22,8 +22,11 @@ namespace StormByte::Config {
 			void 					Clear() noexcept;
 			void 					Read();
 			void 					Write();
+			std::shared_ptr<Item>	LookUp(const std::string&) const;
 
 		private:
+			void					Add(Item* parent, Parser::Content&& content);
+			void					Add(Item* parent, std::vector<Parser::Content>&& content);
 			std::unique_ptr<Group> m_root;
 			std::filesystem::path m_file;
 	};

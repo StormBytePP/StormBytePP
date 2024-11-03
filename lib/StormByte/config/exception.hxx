@@ -35,4 +35,22 @@ namespace StormByte::Config {
 			FileIOError& operator=(const FileIOError&)	= default;
 			~FileIOError() noexcept override			= default;
 	};
+
+	class STORMBYTE_PUBLIC ParseError final: public Exception {
+		public:
+			ParseError(const std::string&);
+			ParseError(const std::string&, const std::string&);
+			ParseError(const std::string&, const std::string&, const std::string&);
+			ParseError(const ParseError&)				= default;
+			ParseError& operator=(const ParseError&)	= default;
+			~ParseError() noexcept override				= default;
+	};
+
+	class STORMBYTE_PUBLIC ItemNotFound final: public Exception {
+		public:
+			ItemNotFound(const std::string&);
+			ItemNotFound(const ItemNotFound&)				= default;
+			ItemNotFound& operator=(const ItemNotFound&)	= default;
+			~ItemNotFound() noexcept override				= default;
+	};
 }

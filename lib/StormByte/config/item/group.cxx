@@ -3,6 +3,8 @@
 #include <StormByte/config/item/value/string.hxx>
 #include <StormByte/config/exception.hxx>
 
+#include <sstream>
+
 using namespace StormByte::Config;
 
 Group::Group(const std::string& name):
@@ -40,7 +42,7 @@ const int& Group::AsInteger() const {
 
 std::shared_ptr<Item> Group::Add(const std::string& name, const Type& type) {
 	if (find_if(name.begin(), name.end(), 
-        [](char c) { return !isalnum(c); }) != name.end())
+        [](char c) { return !(isalnum(c) || c == '_'); }) != name.end())
 		throw InvalidName(name);
 
 	std::shared_ptr<Item> item;
@@ -73,6 +75,24 @@ void Group::SetString(std::string&&) {
 	throw ValueFailure(*this, Type::String);
 }
 
+std::shared_ptr<Item> Group::LookUp(const std::string& path) const {
+    std::queue<std::string> result;
+    std::stringstream ss(path);
+    std::string item;
+
+    while (std::getline(ss, item, '/')) {
+        result.push(item);
+    }
+
+	std::shared_ptr<Item> lookup_item;
+	try {
+		lookup_item = LookUp(result);
+	} catch(const std::runtime_error&) {
+		throw ItemNotFound(path);
+	}
+    return lookup_item;
+}
+
 std::string Group::Serialize(const int& indent_level) const noexcept {
 	std::string serial = Indent(indent_level) + m_name + " = {\n";
 	for (auto it = m_children.begin(); it != m_children.end(); it++) {
@@ -84,4 +104,32 @@ std::string Group::Serialize(const int& indent_level) const noexcept {
 
 std::shared_ptr<Item> Group::Clone() {
 	return std::make_shared<Group>(*this);
+}
+
+std::shared_ptr<Item> Group::LookUp(std::queue<std::string>& path) const {
+	bool not_found = false;
+	std::shared_ptr<Item> found_item;
+	if (path.size() > 0) {
+		std::string item_path = path.front();
+		path.pop();
+
+		if ( m_children.find(item_path) != m_children.end()) {
+			found_item = m_children.at(item_path);
+			if (path.size() == 0)
+				return found_item;
+			else if (found_item->GetType() != Item::Type::Group)
+				not_found = true;
+			else
+				return std::dynamic_pointer_cast<Group>(found_item)->LookUp(path);
+		}
+		else
+			not_found = true;
+	}
+	else
+		not_found = true;
+
+	if (not_found)
+		throw std::runtime_error("blasafel"); // Caller will throw the correct exception
+
+	return found_item; // Just to make compiler warning away
 }

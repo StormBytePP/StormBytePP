@@ -3,6 +3,7 @@
 #include <StormByte/config/item.hxx>
 
 #include <map>
+#include <queue>
 
 namespace StormByte::Config {
 	class STORMBYTE_PUBLIC Group final: public Item {
@@ -26,10 +27,13 @@ namespace StormByte::Config {
 			void					SetString(const std::string&) override;
 			void					SetString(std::string&&) override;
 
+			std::shared_ptr<Item>	LookUp(const std::string&) const;
+
 			std::string				Serialize(const int&) const noexcept override;
 
 		private:
 			std::shared_ptr<Item>	Clone() override;
+			std::shared_ptr<Item>	LookUp(std::queue<std::string>&) const;
 
 			std::map<std::string, std::shared_ptr<Item>> m_children;
 	};

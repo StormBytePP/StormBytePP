@@ -3,6 +3,7 @@ set(STORMBYTE_HEADERS
 	${STORMBYTE_DIR}/lib/StormByte/config/exception.hxx
 	${STORMBYTE_DIR}/lib/StormByte/config/file.hxx
 	${STORMBYTE_DIR}/lib/StormByte/config/item.hxx
+	${STORMBYTE_DIR}/lib/StormByte/config/parser.hxx
 	${STORMBYTE_DIR}/lib/StormByte/config/item/group.hxx
 	${STORMBYTE_DIR}/lib/StormByte/config/item/value.hxx
 	${STORMBYTE_DIR}/lib/StormByte/config/item/value/integer.hxx
@@ -14,6 +15,7 @@ set(STORMBYTE_SOURCES
 	${STORMBYTE_DIR}/lib/StormByte/config/exception.cxx
 	${STORMBYTE_DIR}/lib/StormByte/config/file.cxx
 	${STORMBYTE_DIR}/lib/StormByte/config/item.cxx
+	${STORMBYTE_DIR}/lib/StormByte/config/parser.cxx
 	${STORMBYTE_DIR}/lib/StormByte/config/item/group.cxx
 	${STORMBYTE_DIR}/lib/StormByte/config/item/value.cxx
 	${STORMBYTE_DIR}/lib/StormByte/config/item/value/integer.cxx

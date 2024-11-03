@@ -1,8 +1,9 @@
 #include <StormByte/config/exception.hxx>
 #include <StormByte/config/file.hxx>
-#include <StormByte/config/item/group.hxx>
+#include <StormByte/config/parser.hxx>
 
 #include <fstream>
+#include <sstream>
 
 using namespace StormByte::Config;
 
@@ -30,10 +31,27 @@ std::shared_ptr<Item> File::Add(const std::string& name, const Item::Type& type)
 	return m_root->Add(name, type);
 }
 
-void File::Clear() noexcept { m_root.reset(); }
+void File::Clear() noexcept { m_root = std::make_unique<Group>("root"); }
 
 void File::Read() {
 	/* This is gonna be a bit hard... */
+	Clear();
+	std::ifstream file;
+	file.open(m_file, std::ios::in);
+	if (file.fail())
+		throw FileIOError(m_file, "read");
+	try {
+		Parser parser(std::move(file));
+		std::vector<Parser::Content> parsed_content = parser.Parse();
+		Add(m_root.get(), std::move(parsed_content));
+	}
+	catch (const ParseError& pe) {
+		throw pe;
+	}
+
+	// Trick for debug
+	m_file = "/tmp/new.cfg";
+	Write();
 }
 
 void File::Write() {
@@ -46,4 +64,55 @@ void File::Write() {
 		file << it->second->Serialize(0) << "\n";
 
 	file.close();
+}
+
+std::shared_ptr<Item> File::LookUp(const std::string& path) const {
+	return m_root->LookUp(path);
+}
+
+void File::Add(Item* parent, Parser::Content&& content) {
+	std::shared_ptr<Item> child;
+	try {
+		child = parent->Add(content.s_name, content.s_type);
+	}
+	catch(const InvalidName&) {
+		throw ParseError(content.s_name, content.s_content, "Invalid name");
+	}
+	switch (content.s_type) {
+		case Item::Type::Integer:
+			try {
+				child->SetInteger(std::stoi(content.s_content));
+			}
+			catch(const std::invalid_argument&) {
+				throw ParseError(content.s_name, content.s_content, "Bad integer value");
+			}
+			catch(const std::out_of_range&) {
+				throw ParseError(content.s_name, content.s_content, "Out of range");
+			}
+			break;
+
+		case Item::Type::String:
+			try {
+				child->SetString(std::move(content.s_content));
+			}
+			catch (const InvalidName&) {
+				throw ParseError(content.s_name, content.s_content, "Invalid name");
+			}
+			break;
+
+		case Item::Type::Group:
+			try {
+				std::istringstream is(std::move(content.s_content));
+				Parser group_parser(std::move(is));
+				Add(child.get(), group_parser.Parse());
+			}
+			catch(const ParseError& pe) {
+				throw pe;
+			}
+	}
+}
+
+void File::Add(Item* parent, std::vector<Parser::Content>&& contents) {
+	for (auto it = contents.begin(); it != contents.end(); it++)
+		Add(parent, std::move(*it));
 }

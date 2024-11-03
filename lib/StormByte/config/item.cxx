@@ -23,12 +23,15 @@ const std::string Item::GetTypeAsString(const Type& t) noexcept {
 	switch(t) {
 		case Type::Group:
 			str = "Group";
+			break;
 
 		case Type::String:
 			str = "String";
+			break;
 
 		case Type::Integer:
 			str = "Integer";
+			break;
 	}
 	return str;
 }
