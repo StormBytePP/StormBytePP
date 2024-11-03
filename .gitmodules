@@ -1,3 +1,0 @@
-[submodule "thirdparty/libconfig++/src"]
-	path = thirdparty/libconfig++/src
-	url = https://github.com/hyperrealm/libconfig.git

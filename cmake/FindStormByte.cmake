@@ -15,7 +15,7 @@ if(StormByte_INCLUDE_DIR)
            StormByte_VERSION "${_ver_line}")
     unset(_ver_line)
 	set(StormByte_FOUND TRUE)
-	set(StormByte_LIBRARIES sqlite3 config++)
+	set(StormByte_LIBRARIES sqlite3)
 endif()
 
 include(FindPackageHandleStandardArgs)

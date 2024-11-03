@@ -1,10 +1,24 @@
 include(GNUInstallDirs)
 set(STORMBYTE_HEADERS
-	${STORMBYTE_DIR}/lib/StormByte/config.hxx
+	${STORMBYTE_DIR}/lib/StormByte/config/exception.hxx
+	${STORMBYTE_DIR}/lib/StormByte/config/file.hxx
+	${STORMBYTE_DIR}/lib/StormByte/config/item.hxx
+	${STORMBYTE_DIR}/lib/StormByte/config/item/group.hxx
+	${STORMBYTE_DIR}/lib/StormByte/config/item/value.hxx
+	${STORMBYTE_DIR}/lib/StormByte/config/item/value/integer.hxx
+	${STORMBYTE_DIR}/lib/StormByte/config/item/value/string.hxx
+	${STORMBYTE_DIR}/lib/StormByte/exception.hxx
 	${STORMBYTE_DIR}/lib/StormByte/visibility.h
 )
 set(STORMBYTE_SOURCES
-	${STORMBYTE_DIR}/lib/StormByte/config.cxx
+	${STORMBYTE_DIR}/lib/StormByte/config/exception.cxx
+	${STORMBYTE_DIR}/lib/StormByte/config/file.cxx
+	${STORMBYTE_DIR}/lib/StormByte/config/item.cxx
+	${STORMBYTE_DIR}/lib/StormByte/config/item/group.cxx
+	${STORMBYTE_DIR}/lib/StormByte/config/item/value.cxx
+	${STORMBYTE_DIR}/lib/StormByte/config/item/value/integer.cxx
+	${STORMBYTE_DIR}/lib/StormByte/config/item/value/string.cxx
+	${STORMBYTE_DIR}/lib/StormByte/exception.cxx
 	${STORMBYTE_DIR}/lib/StormByte/sqlite3.cxx
 )
 
@@ -29,7 +43,7 @@ set_target_properties(StormByte PROPERTIES
 	SOVERSION		${CMAKE_PROJECT_VERSION}
 	VERSION 		${CMAKE_PROJECT_VERSION}
 )
-target_link_libraries(StormByte PUBLIC config++)
+
 if (NOT WIN32)
 	target_compile_options(StormByte PRIVATE -fPIC -fvisibility=hidden $<$<COMPILE_LANGUAGE:CXX>:-fvisibility-inlines-hidden>)
 endif()
@@ -41,6 +55,5 @@ if (STORMBYTE_AS_SUBPROJECT)
 endif()
 target_link_libraries(StormByte
 	PUBLIC sqlite3
-	PUBLIC config++
 )
 target_include_directories(StormByte PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
