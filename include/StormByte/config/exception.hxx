@@ -1,10 +1,10 @@
 #pragma once
 
 #include <StormByte/config/item.hxx>
-#include <StormByte/exception.hxx>
+#include <StormByte/system/exception.hxx>
 
 namespace StormByte::Config {
-	class STORMBYTE_PUBLIC WrongValueTypeConversion final: public Exception {
+	class STORMBYTE_PUBLIC WrongValueTypeConversion final: public System::Exception {
 		public:
 			WrongValueTypeConversion(const Item&, const std::string&);
 			WrongValueTypeConversion(const WrongValueTypeConversion&)				= default;
@@ -12,7 +12,7 @@ namespace StormByte::Config {
 			~WrongValueTypeConversion() noexcept override							= default;
 	};
 
-	class STORMBYTE_PUBLIC ValueFailure final: public Exception {
+	class STORMBYTE_PUBLIC ValueFailure final: public System::Exception {
 		public:
 			ValueFailure(const Item&, const Item::Type&);
 			ValueFailure(const ValueFailure&)				= default;
@@ -20,7 +20,7 @@ namespace StormByte::Config {
 			~ValueFailure() noexcept override				= default;
 	};
 
-	class STORMBYTE_PUBLIC InvalidName final: public Exception {
+	class STORMBYTE_PUBLIC InvalidName final: public System::Exception {
 		public:
 			InvalidName(const std::string&);
 			InvalidName(const InvalidName&)				= default;
@@ -28,7 +28,7 @@ namespace StormByte::Config {
 			~InvalidName() noexcept override			= default;
 	};
 
-	class STORMBYTE_PUBLIC FileIOError final: public Exception {
+	class STORMBYTE_PUBLIC FileIOError final: public System::Exception {
 		public:
 			FileIOError(const std::string&, const std::string&);
 			FileIOError(const FileIOError&)				= default;
@@ -36,7 +36,7 @@ namespace StormByte::Config {
 			~FileIOError() noexcept override			= default;
 	};
 
-	class STORMBYTE_PUBLIC ParseError final: public Exception {
+	class STORMBYTE_PUBLIC ParseError final: public System::Exception {
 		public:
 			ParseError(const std::string&);
 			ParseError(const std::string&, const std::string&);
@@ -46,7 +46,7 @@ namespace StormByte::Config {
 			~ParseError() noexcept override				= default;
 	};
 
-	class STORMBYTE_PUBLIC ItemNotFound final: public Exception {
+	class STORMBYTE_PUBLIC ItemNotFound final: public System::Exception {
 		public:
 			ItemNotFound(const std::string&);
 			ItemNotFound(const ItemNotFound&)				= default;
