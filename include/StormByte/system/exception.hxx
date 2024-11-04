@@ -9,7 +9,7 @@ namespace StormByte::System {
 		public:
 			Exception(const std::string&);
 			Exception(const Exception&);
-			Exception(Exception&) noexcept;;
+			Exception(Exception&) noexcept;
 			Exception& operator=(const Exception&);
 			Exception& operator=(Exception&&) noexcept;
 			virtual ~Exception() noexcept;

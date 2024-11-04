@@ -55,12 +55,12 @@ endif()
 if (STORMBYTE_AS_SUBPROJECT)
 	target_include_directories(StormByte
 		SYSTEM INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
-		SYSTEM INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/generated
 	)
 endif()
 
 target_include_directories(StormByte
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
+	SYSTEM PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
 	SYSTEM PUBLIC ${STORMBYTE_DIR}/include
 )
 
