@@ -8,6 +8,9 @@ set(STORMBYTE_HEADERS
 	${STORMBYTE_DIR}/lib/StormByte/config/item/value.hxx
 	${STORMBYTE_DIR}/lib/StormByte/config/item/value/integer.hxx
 	${STORMBYTE_DIR}/lib/StormByte/config/item/value/string.hxx
+	${STORMBYTE_DIR}/lib/StormByte/system/executable.hxx
+	${STORMBYTE_DIR}/lib/StormByte/system/pipe.hxx
+	${STORMBYTE_DIR}/lib/StormByte/system/worker.hxx
 	${STORMBYTE_DIR}/lib/StormByte/exception.hxx
 	${STORMBYTE_DIR}/lib/StormByte/sqlite3.hxx
 	${STORMBYTE_DIR}/lib/StormByte/visibility.h
@@ -21,7 +24,11 @@ set(STORMBYTE_SOURCES
 	${STORMBYTE_DIR}/lib/StormByte/config/item/value.cxx
 	${STORMBYTE_DIR}/lib/StormByte/config/item/value/integer.cxx
 	${STORMBYTE_DIR}/lib/StormByte/config/item/value/string.cxx
+	${STORMBYTE_DIR}/lib/StormByte/system/executable.cxx
+	${STORMBYTE_DIR}/lib/StormByte/system/pipe.cxx
+	${STORMBYTE_DIR}/lib/StormByte/system/worker.cxx
 	${STORMBYTE_DIR}/lib/StormByte/exception.cxx
+	
 )
 
 # SQLite support
