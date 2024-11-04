@@ -60,7 +60,7 @@ endif()
 
 target_include_directories(StormByte
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
-	SYSTEM PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
+	SYSTEM PRIVATE ${CMAKE_BINARY_DIR}/generated
 	SYSTEM PUBLIC ${STORMBYTE_DIR}/include
 )
 
@@ -84,3 +84,9 @@ if (NOT WIN32)
 	install(FILES ${CMAKE_BINARY_DIR}/generated/StormByte/Features.h 	DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/StormByte")
 	install(FILES ${STORMBYTE_CMAKE_DIR}/FindStormByte.cmake 			DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/cmake/Modules")
 endif()
+
+file(CONFIGURE OUTPUT ${CMAKE_BINARY_DIR}/generated/StormByte.h CONTENT "#pragma once
+#define STORMBYTE_VERSION \"${${PROJECT_NAME}_VERSION}\"")
+
+file(CONFIGURE OUTPUT ${CMAKE_BINARY_DIR}/generated/StormByte/Features.h CONTENT "#pragma once
+#define STORMBYTE_SQLITE ${ENABLE_SQLITE}")
