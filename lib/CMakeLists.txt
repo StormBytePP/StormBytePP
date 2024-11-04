@@ -56,7 +56,6 @@ target_include_directories(StormByte PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 # Enable features
 target_include_directories(StormByte SYSTEM PRIVATE ${CMAKE_BINARY_DIR}/generated)
 if (ENABLE_SQLITE)
-	target_sources(StormByte PRIVATE ${STORMBYTE_SQLITE_SOURCES})
 	target_link_libraries(StormByte PUBLIC sqlite3)
 endif()
 

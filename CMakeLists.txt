@@ -23,3 +23,7 @@ endif()
 include(Definitions)
 add_subdirectory(lib)
 add_subdirectory(thirdparty)
+
+if(BUILD_TEST) # This is internal
+	add_subdirectory(test)
+endif()
