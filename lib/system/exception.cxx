@@ -8,6 +8,10 @@ Exception::Exception(const std::string& message):m_data(nullptr) {
 	copy(message);
 }
 
+Exception::~Exception() noexcept {
+	free();
+}
+
 const char* Exception::what() const noexcept {
 	return m_data;
 }

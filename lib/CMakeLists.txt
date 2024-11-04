@@ -1,34 +1,5 @@
 include(GNUInstallDirs)
-set(STORMBYTE_HEADERS
-	${STORMBYTE_DIR}/include/StormByte/config/exception.hxx
-	${STORMBYTE_DIR}/include/StormByte/config/file.hxx
-	${STORMBYTE_DIR}/include/StormByte/config/item.hxx
-	${STORMBYTE_DIR}/include/StormByte/config/parser.hxx
-	${STORMBYTE_DIR}/include/StormByte/config/item/group.hxx
-	${STORMBYTE_DIR}/include/StormByte/config/item/value.hxx
-	${STORMBYTE_DIR}/include/StormByte/config/item/value/integer.hxx
-	${STORMBYTE_DIR}/include/StormByte/config/item/value/string.hxx
-	${STORMBYTE_DIR}/include/StormByte/system/exception.hxx
-	${STORMBYTE_DIR}/include/StormByte/system/executable.hxx
-	${STORMBYTE_DIR}/include/StormByte/system/pipe.hxx
-	${STORMBYTE_DIR}/include/StormByte/system/worker.hxx
-	${STORMBYTE_DIR}/include/StormByte/sqlite3.hxx
-	${STORMBYTE_DIR}/include/StormByte/visibility.h
-)
-set(STORMBYTE_SOURCES
-	${STORMBYTE_DIR}/lib/config/exception.cxx
-	${STORMBYTE_DIR}/lib/config/file.cxx
-	${STORMBYTE_DIR}/lib/config/item.cxx
-	${STORMBYTE_DIR}/lib/config/parser.cxx
-	${STORMBYTE_DIR}/lib/config/item/group.cxx
-	${STORMBYTE_DIR}/lib/config/item/value.cxx
-	${STORMBYTE_DIR}/lib/config/item/value/integer.cxx
-	${STORMBYTE_DIR}/lib/config/item/value/string.cxx
-	${STORMBYTE_DIR}/lib/system/exception.cxx
-	${STORMBYTE_DIR}/lib/system/executable.cxx
-	${STORMBYTE_DIR}/lib/system/pipe.cxx
-	${STORMBYTE_DIR}/lib/system/worker.cxx
-)
+file (GLOB STORMBYTE_SOURCES ${STORMBYTE_DIR}/lib/*.cxx ${STORMBYTE_DIR}/lib/**/*.cxx)
 
 # SQLite support
 set(STORMBYTE_SQLITE_SOURCES
