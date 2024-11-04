@@ -1,4 +1,4 @@
-if (ENABLE_SQLITE)
+if (STORMBYTE_ENABLE_SQLITE)
 	if (WITH_SYSTEM_SQLITE)
 		find_package(SQLite3 REQUIRED)
 	else()

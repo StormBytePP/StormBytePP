@@ -5,8 +5,10 @@ option(ENABLE_SQLITE							"Enable SQLite"					ON)
 cmake_dependent_option(WITH_SYSTEM_SQLITE		"Use system sqlite3 library"	OFF ENABLE_SQLITE ON)
 
 # If this is used as subproject then we force some things
-if (STORMBYTE_AS_SUBPROJECT)
-	set(ENABLE_SQLITE ON)
+if (STORMBYTE_AS_SUBPROJECT OR ENABLE_SQLITE)
+	set(STORMBYTE_ENABLE_SQLITE TRUE)
+else()
+	set(STORMBYTE_ENABLE_SQLITE FALSE)
 endif()
 
 add_subdirectory(sqlite3)
