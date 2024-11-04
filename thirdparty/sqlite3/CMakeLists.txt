@@ -34,8 +34,10 @@ if (ENABLE_SQLITE)
 			SYSTEM INTERFACE ${sqlite3_SOURCE_DIR}
 			PRIVATE ${sqlite3_SOURCE_DIR}
 		)
-		set_target_properties(sqlite3 PROPERTIES VERSION 	${sqlite3_VERSION})
-		set_target_properties(sqlite3 PROPERTIES SOVERSION 	${sqlite3_VERSION})
+		set_target_properties(sqlite3 PROPERTIES
+			VERSION 	${sqlite3_VERSION}
+			SOVERSION 	${sqlite3_VERSION}
+		)
 
 		if (NOT WIN32)
 			target_compile_options(sqlite3 PRIVATE -fPIC -fvisibility=hidden $<$<COMPILE_LANGUAGE:CXX>:-fvisibility-inlines-hidden>)
