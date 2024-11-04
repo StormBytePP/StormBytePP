@@ -23,10 +23,11 @@ if(StormByte_INCLUDE_DIR)
 	set(StormByte_INCLUDE_DIRS ${StormByte_INCLUDE_DIR})
 	set(StormByte_LIBRARIES ${StormByte_LIBRARY})
 	if (StormByte_SQLITE3_FEATURE)
-		find_library(StormByte_SQLite3_LIBRARY NAMES sqlite3)
+		# In order not to force changing rpath for linking we say only "sqlite3"
+		# instead of the full library path
 		find_path(StormByte_SQLite3_INCLUDE_DIR NAMES sqlite3.h)
 		list(APPEND StormByte_INCLUDE_DIRS ${StormByte_SQLite3_INCLUDE_DIR})
-		list(APPEND StormByte_LIBRARIES ${StormByte_SQLite3_LIBRARY})
+		list(APPEND StormByte_LIBRARIES sqlite3)
 	endif()
 endif()
 
