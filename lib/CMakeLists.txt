@@ -55,6 +55,7 @@ endif()
 if (STORMBYTE_AS_SUBPROJECT)
 	target_include_directories(StormByte
 		SYSTEM INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
+		SYSTEM INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/generated
 	)
 endif()
 
