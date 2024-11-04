@@ -16,6 +16,7 @@ set(STORMBYTE_HEADERS
 	${STORMBYTE_DIR}/include/StormByte/visibility.h
 )
 set(STORMBYTE_SOURCES
+	${STORMBYTE_DIR}/lib/config/exception.cxx
 	${STORMBYTE_DIR}/lib/config/file.cxx
 	${STORMBYTE_DIR}/lib/config/item.cxx
 	${STORMBYTE_DIR}/lib/config/parser.cxx
