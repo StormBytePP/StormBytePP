@@ -1,39 +1,38 @@
 include(GNUInstallDirs)
 set(STORMBYTE_HEADERS
-	${STORMBYTE_DIR}/lib/StormByte/config/exception.hxx
-	${STORMBYTE_DIR}/lib/StormByte/config/file.hxx
-	${STORMBYTE_DIR}/lib/StormByte/config/item.hxx
-	${STORMBYTE_DIR}/lib/StormByte/config/parser.hxx
-	${STORMBYTE_DIR}/lib/StormByte/config/item/group.hxx
-	${STORMBYTE_DIR}/lib/StormByte/config/item/value.hxx
-	${STORMBYTE_DIR}/lib/StormByte/config/item/value/integer.hxx
-	${STORMBYTE_DIR}/lib/StormByte/config/item/value/string.hxx
-	${STORMBYTE_DIR}/lib/StormByte/system/executable.hxx
-	${STORMBYTE_DIR}/lib/StormByte/system/pipe.hxx
-	${STORMBYTE_DIR}/lib/StormByte/system/worker.hxx
-	${STORMBYTE_DIR}/lib/StormByte/exception.hxx
-	${STORMBYTE_DIR}/lib/StormByte/sqlite3.hxx
-	${STORMBYTE_DIR}/lib/StormByte/visibility.h
+	${STORMBYTE_DIR}/include/StormByte/config/exception.hxx
+	${STORMBYTE_DIR}/include/StormByte/config/file.hxx
+	${STORMBYTE_DIR}/include/StormByte/config/item.hxx
+	${STORMBYTE_DIR}/include/StormByte/config/parser.hxx
+	${STORMBYTE_DIR}/include/StormByte/config/item/group.hxx
+	${STORMBYTE_DIR}/include/StormByte/config/item/value.hxx
+	${STORMBYTE_DIR}/include/StormByte/config/item/value/integer.hxx
+	${STORMBYTE_DIR}/include/StormByte/config/item/value/string.hxx
+	${STORMBYTE_DIR}/include/StormByte/system/executable.hxx
+	${STORMBYTE_DIR}/include/StormByte/system/pipe.hxx
+	${STORMBYTE_DIR}/include/StormByte/system/worker.hxx
+	${STORMBYTE_DIR}/include/StormByte/exception.hxx
+	${STORMBYTE_DIR}/include/StormByte/sqlite3.hxx
+	${STORMBYTE_DIR}/include/StormByte/visibility.h
 )
 set(STORMBYTE_SOURCES
-	${STORMBYTE_DIR}/lib/StormByte/config/exception.cxx
-	${STORMBYTE_DIR}/lib/StormByte/config/file.cxx
-	${STORMBYTE_DIR}/lib/StormByte/config/item.cxx
-	${STORMBYTE_DIR}/lib/StormByte/config/parser.cxx
-	${STORMBYTE_DIR}/lib/StormByte/config/item/group.cxx
-	${STORMBYTE_DIR}/lib/StormByte/config/item/value.cxx
-	${STORMBYTE_DIR}/lib/StormByte/config/item/value/integer.cxx
-	${STORMBYTE_DIR}/lib/StormByte/config/item/value/string.cxx
-	${STORMBYTE_DIR}/lib/StormByte/system/executable.cxx
-	${STORMBYTE_DIR}/lib/StormByte/system/pipe.cxx
-	${STORMBYTE_DIR}/lib/StormByte/system/worker.cxx
-	${STORMBYTE_DIR}/lib/StormByte/exception.cxx
-	
+	${STORMBYTE_DIR}/lib/config/exception.cxx
+	${STORMBYTE_DIR}/lib/config/file.cxx
+	${STORMBYTE_DIR}/lib/config/item.cxx
+	${STORMBYTE_DIR}/lib/config/parser.cxx
+	${STORMBYTE_DIR}/lib/config/item/group.cxx
+	${STORMBYTE_DIR}/lib/config/item/value.cxx
+	${STORMBYTE_DIR}/lib/config/item/value/integer.cxx
+	${STORMBYTE_DIR}/lib/config/item/value/string.cxx
+	${STORMBYTE_DIR}/lib/system/executable.cxx
+	${STORMBYTE_DIR}/lib/system/pipe.cxx
+	${STORMBYTE_DIR}/lib/system/worker.cxx
+	${STORMBYTE_DIR}/lib/exception.cxx
 )
 
 # SQLite support
 set(STORMBYTE_SQLITE_SOURCES
-	${STORMBYTE_DIR}/lib/StormByte/sqlite3.cxx
+	${STORMBYTE_DIR}/lib/sqlite3.cxx
 )
 
 if (NOT STORMBYTE_AS_SUBPROJECT OR WIN32)
@@ -58,7 +57,10 @@ if (STORMBYTE_AS_SUBPROJECT)
 	)
 endif()
 
-target_include_directories(StormByte PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(StormByte
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
+	SYSTEM PUBLIC ${STORMBYTE_DIR}/include
+)
 
 # Enable features
 target_include_directories(StormByte SYSTEM PRIVATE ${CMAKE_BINARY_DIR}/generated)
@@ -73,10 +75,8 @@ install(TARGETS StormByte
 	RUNTIME 		DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 if (NOT WIN32)
-	install(DIRECTORY ${STORMBYTE_DIR}/lib/StormByte
+	install(DIRECTORY ${STORMBYTE_DIR}/include/StormByte
 		DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-		PATTERN "*.h"
-		PATTERN "*.hxx"
 	)
 	install(FILES ${CMAKE_BINARY_DIR}/generated/StormByte.h 			DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/StormByte")
 	install(FILES ${CMAKE_BINARY_DIR}/generated/StormByte/Features.h 	DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/StormByte")
