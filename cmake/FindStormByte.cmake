@@ -17,30 +17,34 @@ if(StormByte_INCLUDE_DIR)
 	file(STRINGS ${StormByte_INCLUDE_DIR}/StormByte/Features.h _sqlite_feature
 		   REGEX "^#define STORMBYTE_SQLITE *ON|OFF"
 		   LIMIT_COUNT 1)
-	string(REGEX MATCH "ON|OFF"
-			 StormByte_SQLITE3_FEATURE "${_sqlite_feature}")
+	string(REGEX MATCH "ON|OFF"  StormByte_SQLITE3_FEATURE "${_sqlite_feature}")
 	unset(_sqlite_feature)
 	set(StormByte_FOUND TRUE)
-	set(StormByte_LIBRARIES "")
+	set(StormByte_INCLUDE_DIRS ${StormByte_INCLUDE_DIR})
+	set(StormByte_LIBRARIES ${StormByte_LIBRARY})
 	if (StormByte_SQLITE3_FEATURE)
-		list(APPEND StormByte_LIBRARIES sqlite3)
+		find_library(StormByte_SQLite3_LIBRARY NAMES sqlite3)
+		find_path(StormByte_SQLite3_INCLUDE_DIR NAMES sqlite3.h)
+		list(APPEND StormByte_INCLUDE_DIRS ${StormByte_SQLite3_INCLUDE_DIR})
+		list(APPEND StormByte_LIBRARIES ${StormByte_SQLite3_LIBRARY})
 	endif()
 endif()
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(StormByte
-    REQUIRED_VARS StormByte_INCLUDE_DIR StormByte_LIBRARY StormByte_SQLITE3_FEATURE
-    VERSION_VAR StormByte_VERSION)
+    REQUIRED_VARS StormByte_INCLUDE_DIR StormByte_LIBRARY StormByte_LIBRARIES
+    VERSION_VAR StormByte_VERSION
+    HANDLE_COMPONENTS
+)
 
 # Create the imported target
 if(StormByte_FOUND)
-    set(StormByte_INCLUDE_DIRS ${StormByte_INCLUDE_DIR})
     if(NOT TARGET StormByte)
         add_library(StormByte UNKNOWN IMPORTED GLOBAL)
         set_target_properties(StormByte PROPERTIES
-			IMPORTED_LOCATION 					"${StormByte_LIBRARY}"
-            INTERFACE_INCLUDE_DIRECTORIES 		"${StormByte_INCLUDE_DIRS}"
-            INTERFACE_LINK_LIBRARIES      		"${StormByte_LIBRARIES}"
+			IMPORTED_LOCATION 				"${StormByte_LIBRARY}"
+			INTERFACE_INCLUDE_DIRECTORIES 	"${StormByte_INCLUDE_DIRS}"
+			INTERFACE_LINK_LIBRARIES      	"${StormByte_LIBRARIES}"
 		)
     endif()
 endif()
