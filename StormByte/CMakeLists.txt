@@ -32,7 +32,7 @@ set(STORMBYTE_SOURCES
 # SQLite support
 if(STORMBYTE_ENABLE_SQLITE)
 	list(APPEND STORMBYTE_SOURCES
-		${STORMBYTE_DIR}/lib/sqlite3.cxx
+		${STORMBYTE_DIR}/StormByte/sqlite3.cxx
 	)
 endif()
 
