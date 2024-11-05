@@ -3,7 +3,7 @@ find_path(StormByte_INCLUDE_DIR NAMES StormByte/StormByte.h)
 mark_as_advanced(StormByte_INCLUDE_DIR)
 
 # Look for the necessary library
-find_library(StormByte_LIBRARY NAMES StormByte HINTS /usr/lib/StormByte /lib/StormByte)
+find_library(StormByte_LIBRARY NAMES StormByte)
 mark_as_advanced(StormByte_LIBRARY)
 
 # Extract version information from the header file
