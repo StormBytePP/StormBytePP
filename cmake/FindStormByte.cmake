@@ -25,8 +25,6 @@ if(StormByte_INCLUDE_DIR)
 	if (StormByte_SQLITE3_FEATURE)
 		# In order not to force changing rpath for linking we say only "sqlite3"
 		# instead of the full library path
-		find_path(StormByte_SQLite3_INCLUDE_DIR NAMES sqlite3.h)
-		list(APPEND StormByte_INCLUDE_DIRS ${StormByte_SQLite3_INCLUDE_DIR})
 		list(APPEND StormByte_LIBRARIES sqlite3)
 	endif()
 endif()
@@ -47,5 +45,8 @@ if(StormByte_FOUND)
 			INTERFACE_INCLUDE_DIRECTORIES 	"${StormByte_INCLUDE_DIRS}"
 			INTERFACE_LINK_LIBRARIES      	"${StormByte_LIBRARIES}"
 		)
+		if (StormByte_SQLITE3_FEATURE)
+			target_compile_definitions(StormByte INTERFACE STORMBYTE_ENABLE_SQLITE)
+		endif()
     endif()
 endif()

@@ -1,19 +1,4 @@
 include(GNUInstallDirs)
-set(STORMBYTE_HEADERS
-	${STORMBYTE_DIR}/StormByte/config/exception.hxx
-	${STORMBYTE_DIR}/StormByte/config/file.hxx
-	${STORMBYTE_DIR}/StormByte/config/item.hxx
-	${STORMBYTE_DIR}/StormByte/config/parser.hxx
-	${STORMBYTE_DIR}/StormByte/config/item/group.hxx
-	${STORMBYTE_DIR}/StormByte/config/item/value.hxx
-	${STORMBYTE_DIR}/StormByte/config/item/value/integer.hxx
-	${STORMBYTE_DIR}/StormByte/config/item/value/string.hxx
-	${STORMBYTE_DIR}/StormByte/system/exception.hxx
-	${STORMBYTE_DIR}/StormByte/system/executable.hxx
-	${STORMBYTE_DIR}/StormByte/system/pipe.hxx
-	${STORMBYTE_DIR}/StormByte/system/worker.hxx
-	${STORMBYTE_DIR}/StormByte/visibility.h
-)
 set(STORMBYTE_SOURCES
 	${STORMBYTE_DIR}/StormByte/config/exception.cxx
 	${STORMBYTE_DIR}/StormByte/config/file.cxx
@@ -30,11 +15,16 @@ set(STORMBYTE_SOURCES
 )
 
 # SQLite support
-if(STORMBYTE_ENABLE_SQLITE)
-	list(APPEND STORMBYTE_SOURCES
-		${STORMBYTE_DIR}/StormByte/sqlite3.cxx
-	)
-endif()
+set(STORMBYTE_SQLITE_SOURCES
+	${STORMBYTE_DIR}/StormByte/database/sqlite/exception.cxx
+	${STORMBYTE_DIR}/StormByte/database/sqlite/prepared_stmt.cxx
+	${STORMBYTE_DIR}/StormByte/database/sqlite/result.cxx
+	${STORMBYTE_DIR}/StormByte/database/sqlite/result/integer.cxx
+	${STORMBYTE_DIR}/StormByte/database/sqlite/result/null.cxx
+	${STORMBYTE_DIR}/StormByte/database/sqlite/result/row.cxx
+	${STORMBYTE_DIR}/StormByte/database/sqlite/result/string.cxx
+	${STORMBYTE_DIR}/StormByte/database/sqlite/sqlite3.cxx
+)
 
 if (NOT STORMBYTE_AS_SUBPROJECT OR WIN32)
 	add_library(StormByte SHARED ${STORMBYTE_SOURCES})
@@ -67,6 +57,8 @@ target_include_directories(StormByte
 # Enable features
 target_include_directories(StormByte SYSTEM PRIVATE ${CMAKE_BINARY_DIR}/generated)
 if (STORMBYTE_ENABLE_SQLITE)
+	target_sources(StormByte PRIVATE ${STORMBYTE_SQLITE_SOURCES})
+	target_compile_definitions(StormByte PUBLIC STORMBYTE_ENABLE_SQLITE)
 	target_link_libraries(StormByte PUBLIC sqlite3)
 endif()
 
