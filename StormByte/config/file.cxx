@@ -48,7 +48,7 @@ void File::Read() {
 		throw pe;
 	}
 
-	this->Check();
+	this->PostRead();
 }
 
 void File::ReadFromString(const std::string& cfg_str) {
@@ -63,10 +63,10 @@ void File::ReadFromString(const std::string& cfg_str) {
 		throw pe;
 	}
 
-	this->Check();
+	this->PostRead();
 }
 
-void File::Check() {}
+void File::PostRead() noexcept {}
 
 void File::Write() {
 	std::ofstream file;

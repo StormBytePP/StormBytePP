@@ -26,7 +26,7 @@ namespace StormByte::Config {
 			std::shared_ptr<Item>	LookUp(const std::string&) const;
 
 		protected:
-			virtual void			Check();
+			virtual void			PostRead() noexcept = 0;
 
 		private:
 			void					Add(Item* parent, Parser::Content&& content);
