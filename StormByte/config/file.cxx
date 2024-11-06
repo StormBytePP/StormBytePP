@@ -1,6 +1,6 @@
-#include "StormByte/config/exception.hxx"
-#include "StormByte/config/file.hxx"
-#include "StormByte/config/parser.hxx"
+#include <StormByte/config/exception.hxx>
+#include <StormByte/config/file.hxx>
+#include <StormByte/config/parser.hxx>
 
 #include <fstream>
 #include <sstream>

@@ -1,5 +1,5 @@
-#include "StormByte/config/exception.hxx"
-#include "StormByte/config/parser.hxx"
+#include <StormByte/config/exception.hxx>
+#include <StormByte/config/parser.hxx>
 
 using namespace StormByte::Config;
 

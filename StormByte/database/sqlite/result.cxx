@@ -1,5 +1,5 @@
-#include "StormByte/database/sqlite/exception.hxx"
-#include "StormByte/database/sqlite/result.hxx"
+#include <StormByte/database/sqlite/exception.hxx>
+#include <StormByte/database/sqlite/result.hxx>
 
 using namespace StormByte::Database::SQLite;
 

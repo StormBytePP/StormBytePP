@@ -1,5 +1,5 @@
-#include "StormByte/config/item/value/string.hxx"
-#include "StormByte/config/exception.hxx"
+#include <StormByte/config/item/value/string.hxx>
+#include <StormByte/config/exception.hxx>
 
 using namespace StormByte::Config;
 

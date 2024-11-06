@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef STORMBYTE_ENABLE_SQLITE
-	#include <StormByte/database/sqlite/result/row.hxx>
+	#include <StormByte/database/sqlite/row.hxx>
 
 	#include <memory>
 	#include <optional>

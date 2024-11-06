@@ -28,7 +28,6 @@ if (NOT STORMBYTE_AS_SUBPROJECT OR WIN32)
 else()
 	add_library(StormByte STATIC ${STORMBYTE_SOURCES})
 endif()
-target_compile_definitions(StormByte PRIVATE BUILDING_STORMBYTE)
 set_target_properties(StormByte PROPERTIES
 	LINKER_LANGUAGE CXX
 	SOVERSION		${CMAKE_PROJECT_VERSION}
@@ -46,14 +45,16 @@ if (STORMBYTE_AS_SUBPROJECT)
 endif()
 
 target_include_directories(StormByte
-	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
-	SYSTEM PRIVATE ${CMAKE_BINARY_DIR}/generated
+	PRIVATE ${CMAKE_BINARY_DIR}/
+	PRIVATE ${CMAKE_BINARY_DIR}/generated
 	PRIVATE ${STORMBYTE_DIR}
-	SYSTEM INTERFACE ${STORMBYTE_DIR}
+)
+target_include_directories(StormByte SYSTEM BEFORE
+	PRIVATE ${CMAKE_BINARY_DIR}/generated
+	PUBLIC ${STORMBYTE_DIR}
 )
 
 # Enable features
-target_include_directories(StormByte SYSTEM PRIVATE ${CMAKE_BINARY_DIR}/generated)
 if (STORMBYTE_ENABLE_SQLITE)
 	target_sources(StormByte PRIVATE ${STORMBYTE_SQLITE_SOURCES})
 	target_compile_definitions(StormByte PUBLIC STORMBYTE_ENABLE_SQLITE)

@@ -30,10 +30,8 @@ if (STORMBYTE_ENABLE_SQLITE)
 		else()
 			add_library(sqlite3 STATIC "${sqlite3_SOURCE_DIR}/sqlite3.c")
 		endif()
-		target_include_directories(sqlite3
-			SYSTEM INTERFACE ${sqlite3_SOURCE_DIR}
-			PRIVATE ${sqlite3_SOURCE_DIR}
-		)
+		target_include_directories(sqlite3 SYSTEM INTERFACE ${sqlite3_SOURCE_DIR})
+		target_include_directories(sqlite3 PRIVATE ${sqlite3_SOURCE_DIR})
 		set_target_properties(sqlite3 PROPERTIES
 			VERSION 	${sqlite3_VERSION}
 			SOVERSION 	${sqlite3_VERSION}

@@ -8,7 +8,7 @@
 #endif
 
 #ifdef WINDOWS
-	#ifdef BUILDING_STORMBYTE
+	#ifdef StormByte_EXPORTS
 		#define STORMBYTE_PUBLIC	__declspec(dllexport)
   	#else
       	#define STORMBYTE_PUBLIC	__declspec(dllimport)

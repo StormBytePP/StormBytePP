@@ -1,7 +1,7 @@
-#include "StormByte/config/item/group.hxx"
-#include "StormByte/config/item/value/integer.hxx"
-#include "StormByte/config/item/value/string.hxx"
-#include "StormByte/config/exception.hxx"
+#include <StormByte/config/item/group.hxx>
+#include <StormByte/config/item/value/integer.hxx>
+#include <StormByte/config/item/value/string.hxx>
+#include <StormByte/config/exception.hxx>
 
 #include <algorithm>
 #include <sstream>
