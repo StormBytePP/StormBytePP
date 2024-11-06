@@ -18,13 +18,9 @@
 				PreparedSTMT& operator=(PreparedSTMT&&) noexcept	= default;
 				~PreparedSTMT() noexcept;
 
-				void 					Bind(const int&, const int&) noexcept;
-				void 					Bind(const int&, const std::string&) noexcept;
-				inline void 			Bind(const int&, bool) noexcept;
 				void 					Bind(const int&, const void*) noexcept; // Sintactic sugar for bind NULL
 				void 					Bind(const int&, const std::optional<int>&) noexcept;
 				void 					Bind(const int&, const std::optional<std::string>&) noexcept;
-				inline void				Bind(const int&, const std::optional<bool>&) noexcept;
 
 				void 					Reset() noexcept;
 				std::shared_ptr<Row> 	Step();

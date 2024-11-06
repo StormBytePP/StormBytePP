@@ -16,18 +16,6 @@ PreparedSTMT::~PreparedSTMT() noexcept {
 	}
 }
 
-void PreparedSTMT::Bind(const int& column, const int& value) noexcept {
-	sqlite3_bind_int(m_stmt, column + 1, value);
-}
-
-void PreparedSTMT::Bind(const int& column, const std::string& value) noexcept {
-	sqlite3_bind_text(m_stmt, column + 1, value.c_str(), -1, SQLITE_STATIC);
-}
-
-void PreparedSTMT::Bind(const int& column, bool value) noexcept {
-	Bind(column, static_cast<int>(value));
-}
-
 void PreparedSTMT::Bind(const int& column, const void*) noexcept {
 	sqlite3_bind_null(m_stmt, column + 1);
 }
@@ -42,13 +30,6 @@ void PreparedSTMT::Bind(const int& column, const std::optional<int>& val) noexce
 void PreparedSTMT::Bind(const int& column, const std::optional<std::string>& val) noexcept {
 	if (val)
 		Bind(column, *val);
-	else
-		Bind(column, nullptr);
-}
-
-void PreparedSTMT::Bind(const int& column, const std::optional<bool>& val) noexcept {
-	if (val)
-		Bind(column, static_cast<int>(*val));
 	else
 		Bind(column, nullptr);
 }
