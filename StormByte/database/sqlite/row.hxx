@@ -6,6 +6,7 @@
 	#include <map>
 	#include <memory>
 	#include <vector>
+	#include <string>
 
 	namespace StormByte::Database::SQLite {
 		class Result;
