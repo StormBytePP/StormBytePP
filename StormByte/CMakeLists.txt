@@ -35,7 +35,7 @@ set_target_properties(StormByte PROPERTIES
 )
 
 if (NOT WIN32)
-	target_compile_options(StormByte PRIVATE -fPIC)
+	target_compile_options(StormByte PRIVATE -fPIC -fvisibility=hidden $<$<COMPILE_LANGUAGE:CXX>:-fvisibility-inlines-hidden>)
 endif()
 
 if (STORMBYTE_AS_SUBPROJECT)
