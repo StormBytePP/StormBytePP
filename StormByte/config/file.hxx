@@ -31,10 +31,11 @@ namespace StormByte::Config {
 		protected:
 			virtual void			PostRead() noexcept = 0;
 
+			std::unique_ptr<Group> 	m_root;
+			std::filesystem::path 	m_file;
+
 		private:
 			void					Add(Item* parent, Parser::Content&& content);
 			void					Add(Item* parent, std::vector<Parser::Content>&& content);
-			std::unique_ptr<Group> m_root;
-			std::filesystem::path m_file;
 	};
 }

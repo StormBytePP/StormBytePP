@@ -2,6 +2,8 @@
 
 using namespace StormByte::Config;
 
+Exception::Exception(const std::string& msg):System::Exception(msg) {}
+
 WrongValueTypeConversion::WrongValueTypeConversion(const Item& item, const std::string& method):
 Exception(method + " conversion failed for " + item.GetName() + "(" + item.GetTypeAsString() + ")") {}
 

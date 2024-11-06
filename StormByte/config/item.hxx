@@ -32,8 +32,6 @@ namespace StormByte::Config {
 			virtual const int&					AsInteger() const 	= 0;
 			virtual const std::string&			AsString() const	= 0;
 
-			virtual std::shared_ptr<Item>		Add(const std::string&, const Type&) = 0;
-
 			virtual void						SetInteger(const int&)			= 0;
 			virtual void						SetString(const std::string&)	= 0;
 			virtual void						SetString(std::string&&)		= 0;

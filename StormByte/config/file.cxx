@@ -39,14 +39,10 @@ void File::Read() {
 	file.open(m_file, std::ios::in);
 	if (file.fail())
 		throw FileIOError(m_file.string(), "read");
-	try {
-		Parser parser(std::move(file), Parser::GroupMode::Root);
-		std::vector<Parser::Content> parsed_content = parser.Parse();
-		Add(m_root.get(), std::move(parsed_content));
-	}
-	catch (const ParseError& pe) {
-		throw pe;
-	}
+
+	Parser parser(std::move(file), Parser::GroupMode::Root);
+	std::vector<Parser::Content> parsed_content = parser.Parse();
+	Add(m_root.get(), std::move(parsed_content));
 
 	this->PostRead();
 }
@@ -65,8 +61,6 @@ void File::ReadFromString(const std::string& cfg_str) {
 
 	this->PostRead();
 }
-
-void File::PostRead() noexcept {}
 
 void File::Write() {
 	std::ofstream file;
@@ -95,7 +89,7 @@ std::shared_ptr<Item> File::LookUp(const std::string& path) const {
 void File::Add(Item* parent, Parser::Content&& content) {
 	std::shared_ptr<Item> child;
 	try {
-		child = parent->Add(content.s_name, content.s_type);
+		child = parent->AsGroup().Add(content.s_name, content.s_type);
 	}
 	catch(const InvalidName&) {
 		throw ParseError(content.s_name, content.s_content, "Invalid name");

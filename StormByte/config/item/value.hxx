@@ -14,6 +14,5 @@ namespace StormByte::Config {
 			~Value() noexcept override			= default;
 
 			Group&				 	AsGroup() override;
-			std::shared_ptr<Item>	Add(const std::string&, const Type&) override;
 	};
 }

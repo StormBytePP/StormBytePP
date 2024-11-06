@@ -64,6 +64,13 @@ std::shared_ptr<Item> Group::Add(const std::string& name, const Type& type) {
 	return item;
 }
 
+void Group::Remove(const std::string& child) {
+	if (m_children.find(child) != m_children.end())
+		m_children.erase(child);
+	else
+		throw ItemNotFound(child);
+}
+
 void Group::SetInteger(const int&) {
 	throw ValueFailure(*this, Type::Integer);
 }
