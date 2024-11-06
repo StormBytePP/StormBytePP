@@ -7,6 +7,7 @@
 #include <sstream>
 
 using namespace StormByte::Config;
+using Storage = std::map<std::string, std::shared_ptr<Item>>;
 
 Group::Group(const std::string& name):
 Item(Type::Group, name) {}
@@ -28,6 +29,14 @@ Group& Group::operator=(const Group& gr) {
 	}
 	return *this;
 }
+
+Storage::iterator Group::Begin() noexcept { return m_children.begin(); }
+
+Storage::const_iterator Group::Begin() const noexcept { return m_children.begin(); }
+
+Storage::iterator Group::End() noexcept { return m_children.end(); }
+
+Storage::const_iterator Group::End() const noexcept { return m_children.end(); }
 
 Group& Group::AsGroup() {
 	return *this;
