@@ -60,7 +60,16 @@ std::shared_ptr<Item> Group::Add(const std::string& name, const Type& type) {
 			item = std::make_shared<String>(name);
 			break;
 	}
-	m_children.insert({name, item});
+	m_children.insert({ name, item });
+	return item;
+}
+
+std::shared_ptr<Item> Group::Add(std::shared_ptr<Item> item) {
+	if (std::find_if(item->GetName().begin(), item->GetName().end(), 
+        [](char c) { return !(isalnum(c) || c == '_'); }) != item->GetName().end())
+		throw InvalidName(item->GetName());
+		
+	m_children.insert({ item->GetName(), item });
 	return item;
 }
 

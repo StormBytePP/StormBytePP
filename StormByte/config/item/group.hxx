@@ -22,6 +22,7 @@ namespace StormByte::Config {
 			const std::string& 		AsString() const override;
 
 			std::shared_ptr<Item>	Add(const std::string&, const Type&);
+			std::shared_ptr<Item>	Add(std::shared_ptr<Item>);					
 			void					Remove(const std::string&);
 
 			void					SetInteger(const int&) override;
