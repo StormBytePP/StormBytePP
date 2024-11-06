@@ -10,7 +10,7 @@ SQLite3::SQLite3(const std::filesystem::path& dbfile):m_database_file(dbfile) {}
 
 SQLite3::SQLite3(std::filesystem::path&& dbfile):m_database_file(std::move(dbfile)) {}
 
-SQLite3::~SQLite3() { close_database(); }
+SQLite3::~SQLite3() noexcept { close_database(); }
 
 void SQLite3::init_database() {
 	// This is undefined behavior if called more than once for the same object
@@ -21,7 +21,6 @@ void SQLite3::init_database() {
         throw ConnectionError(std::move(message));
     }
 	enable_foreign_keys();
-	prepare_sentences();
 	this->post_init_action();
 }
 
@@ -57,6 +56,16 @@ void SQLite3::rollback_transaction() {
 	silent_query("ROLLBACK");
 }
 
+std::shared_ptr<PreparedSTMT> SQLite3::prepare_sentence(const std::string& name, const std::string& query) {
+	std::shared_ptr<PreparedSTMT> stmt = std::make_shared<PreparedSTMT>(std::move(PreparedSTMT(query)));
+	sqlite3_prepare_v2( m_database, stmt->m_query.c_str(), static_cast<int>(stmt->m_query.length()), &stmt->m_stmt, nullptr);
+	if (!stmt->m_stmt)
+		throw QueryError("Prepared sentence " + name + " can not be loaded\n" + last_error());
+	else
+		m_prepared.insert({ name, stmt });
+	return stmt;
+}
+
 std::shared_ptr<PreparedSTMT> SQLite3::get_prepared(const std::string& name) {
 	std::shared_ptr<PreparedSTMT> stmt = nullptr;
 	if (m_prepared.find(name) != m_prepared.end())
@@ -77,14 +86,3 @@ const std::string SQLite3::last_error() {
 	return sqlite3_errmsg(m_database);
 }
 
-void SQLite3::prepare_sentences() {
-	const std::map<std::string, std::string>& all_prepared_stmts = this->all_prepared_statements(); // For polymorphism
-	for (auto it = all_prepared_stmts.begin(); it != all_prepared_stmts.end(); it++) {
-		std::shared_ptr<PreparedSTMT> stmt = std::make_shared<PreparedSTMT>(std::move(PreparedSTMT(it->second)));
-		sqlite3_prepare_v2( m_database, stmt->m_query.c_str(), static_cast<int>(stmt->m_query.length()), &stmt->m_stmt, nullptr);
-		if (!stmt->m_stmt)
-			throw QueryError("Prepared sentence " + it->first + " can not be loaded\n" + last_error());
-		else
-			m_prepared.insert({ it->first, std::move(stmt) });
-	}
-}
