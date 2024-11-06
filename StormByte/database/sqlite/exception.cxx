@@ -1,4 +1,4 @@
-#include <StormByte/database/sqlite/exception.hxx>
+#include "StormByte/database/sqlite/exception.hxx"
 
 using namespace StormByte::Database::SQLite;
 

@@ -19,10 +19,7 @@ set(STORMBYTE_SQLITE_SOURCES
 	${STORMBYTE_DIR}/StormByte/database/sqlite/exception.cxx
 	${STORMBYTE_DIR}/StormByte/database/sqlite/prepared_stmt.cxx
 	${STORMBYTE_DIR}/StormByte/database/sqlite/result.cxx
-	${STORMBYTE_DIR}/StormByte/database/sqlite/result/integer.cxx
-	${STORMBYTE_DIR}/StormByte/database/sqlite/result/null.cxx
-	${STORMBYTE_DIR}/StormByte/database/sqlite/result/row.cxx
-	${STORMBYTE_DIR}/StormByte/database/sqlite/result/string.cxx
+	${STORMBYTE_DIR}/StormByte/database/sqlite/row.cxx
 	${STORMBYTE_DIR}/StormByte/database/sqlite/sqlite3.cxx
 )
 
@@ -51,7 +48,8 @@ endif()
 target_include_directories(StormByte
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
 	SYSTEM PRIVATE ${CMAKE_BINARY_DIR}/generated
-	SYSTEM PUBLIC ${STORMBYTE_DIR}
+	PRIVATE ${STORMBYTE_DIR}
+	SYSTEM INTERFACE ${STORMBYTE_DIR}
 )
 
 # Enable features
