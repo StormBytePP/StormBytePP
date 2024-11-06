@@ -1,5 +1,6 @@
 #pragma once
 
+#include <StormByte/config/exception.hxx>
 #include <StormByte/config/parser.hxx>
 #include <StormByte/config/item/group.hxx>
 
