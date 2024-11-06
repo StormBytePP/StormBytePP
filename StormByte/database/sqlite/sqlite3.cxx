@@ -24,10 +24,6 @@ void SQLite3::init_database() {
 	this->post_init_action();
 }
 
-void SQLite3::post_init_action() {
-	// Noop for this base class
-}
-
 void SQLite3::close_database() {
 	if (m_database) {
 		m_prepared.clear();
