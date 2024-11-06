@@ -74,7 +74,7 @@ void SQLite3::silent_query(const std::string& query) {
 	if (sqlite3_exec(m_database, query.c_str(), nullptr, nullptr, &error) != SQLITE_OK) {
 		std::string err { error };
 		sqlite3_free(error);
-		throw QueryError(std::move(error));
+		throw QueryError(std::move(err));
 	}
 }
 
