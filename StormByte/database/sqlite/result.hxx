@@ -3,13 +3,14 @@
 #ifdef STORMBYTE_ENABLE_SQLITE
 	#include <StormByte/database/sqlite/type.hxx>
 
+	#include <cstdint>
 	#include <string>
 	#include <variant>
 
 	namespace StormByte::Database::SQLite {
 		class STORMBYTE_PUBLIC Result {
 			public:
-				Result(const int&);
+				Result(const int64_t&);
 				Result(const std::string&);
 				Result(std::string&&);
 				Result(std::nullptr_t);
@@ -26,8 +27,9 @@
 
 			protected:
 				Type m_type;
-				std::variant<int, std::string> m_value;
+				std::variant<int64_t, std::string> m_value;
 				mutable bool m_bool_conversion;
+				mutable int m_int_conversion;
 		};
 	}
 #endif

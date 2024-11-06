@@ -4,6 +4,8 @@
 	#include <StormByte/database/sqlite/type.hxx>
 	#include <StormByte/system/exception.hxx>
 
+	#include <cstdint>
+
 	namespace StormByte::Database::SQLite {
 		class STORMBYTE_PUBLIC Exception: public System::Exception {
 			public:
@@ -24,6 +26,19 @@
 				WrongResultType& operator=(const WrongResultType&)		= default;
 				WrongResultType& operator=(WrongResultType&&) noexcept 	= default;
 				~WrongResultType() noexcept override					= default;
+
+			private:
+				std::string type_to_string(const Type&) const;
+		};
+
+		class STORMBYTE_PUBLIC Overflow: public Exception {
+			public:
+				Overflow(const int64_t&);
+				Overflow(const Overflow&)					= default;
+				Overflow(Overflow&&) noexcept				= default;
+				Overflow& operator=(const Overflow&)		= default;
+				Overflow& operator=(Overflow&&) noexcept 	= default;
+				~Overflow() noexcept override				= default;
 
 			private:
 				std::string type_to_string(const Type&) const;

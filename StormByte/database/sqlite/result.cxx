@@ -1,9 +1,11 @@
 #include <StormByte/database/sqlite/exception.hxx>
 #include <StormByte/database/sqlite/result.hxx>
 
+#include <limits>
+
 using namespace StormByte::Database::SQLite;
 
-Result::Result(const int& value):m_type(Type::Integer), m_value(value) {}
+Result::Result(const int64_t& value):m_type(Type::Integer), m_value(value) {}
 
 Result::Result(const std::string& value):m_type(Type::String), m_value(value) {}
 
@@ -19,14 +21,26 @@ template<> const int& Result::Value<int>() const {
 	if (m_type != Type::Integer)
 		throw WrongResultType(m_type, Type::Integer);
 
-	return std::get<int>(m_value);
+	if (std::get<int64_t>(m_value) > std::numeric_limits<int>::max())
+		throw Overflow(std::get<int64_t>(m_value));
+
+	m_int_conversion = std::get<int64_t>(m_value);
+
+	return m_int_conversion;
+}
+
+template<> const int64_t& Result::Value<int64_t>() const {
+	if (m_type != Type::Integer)
+		throw WrongResultType(m_type, Type::Integer);
+
+	return std::get<int64_t>(m_value);
 }
 
 template<> const bool& Result::Value<bool>() const {
-	if (m_type != Type::Integer || std::get<int>(m_value) < 0 || std::get<int>(m_value) > 1)
+	if (m_type != Type::Integer || std::get<int64_t>(m_value) < 0 || std::get<int64_t>(m_value) > 1)
 		throw WrongResultType(m_type, Type::Bool);
 
-	m_bool_conversion = std::get<int>(m_value) == 1;
+	m_bool_conversion = std::get<int64_t>(m_value) == 1;
 
 	return m_bool_conversion;
 }

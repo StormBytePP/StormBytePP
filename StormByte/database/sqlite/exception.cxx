@@ -1,5 +1,7 @@
 #include <StormByte/database/sqlite/exception.hxx>
 
+#include <limits>
+
 using namespace StormByte::Database::SQLite;
 
 Exception::Exception(const std::string& msg):System::Exception(msg) {}
@@ -31,6 +33,10 @@ std::string WrongResultType::type_to_string(const Type& type) const {
 	}
 	return t;
 }
+
+Overflow::Overflow(const int64_t& source):
+Exception("Value " + std::to_string(source) + " exceeds int max (" +
+std::to_string(std::numeric_limits<int>::max()) + ")") {}
 
 OutOfBounds::OutOfBounds(const size_t& max, const size_t& asked):
 Exception("Out of bounds: Asked for column number " +

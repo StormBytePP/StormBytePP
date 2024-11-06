@@ -1,6 +1,7 @@
 #include <StormByte/database/sqlite/prepared_stmt.hxx>
 #include <StormByte/database/sqlite/result.hxx>
 
+#include <limits>
 #include <sqlite3.h>
 
 using namespace StormByte::Database::SQLite;
@@ -20,16 +21,20 @@ void PreparedSTMT::Bind(const int& column, const void*) noexcept {
 	sqlite3_bind_null(m_stmt, column + 1);
 }
 
-void PreparedSTMT::Bind(const int& column, const std::optional<int>& val) noexcept {
-	if (val)
-		Bind(column, *val);
+void PreparedSTMT::Bind(const int& column, const std::optional<int64_t>& val) noexcept {
+	if (val) {
+		if (*val < std::numeric_limits<int64_t>::max())
+			sqlite3_bind_int(m_stmt, column + 1, *val);
+		else
+			sqlite3_bind_int64(m_stmt, column + 1, *val);
+	}
 	else
 		Bind(column, nullptr);
 }
 
 void PreparedSTMT::Bind(const int& column, const std::optional<std::string>& val) noexcept {
 	if (val)
-		Bind(column, *val);
+		sqlite3_bind_text(m_stmt, column + 1, val->c_str(), -1, SQLITE_STATIC);
 	else
 		Bind(column, nullptr);
 }

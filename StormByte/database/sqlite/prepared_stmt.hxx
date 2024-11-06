@@ -3,6 +3,7 @@
 #ifdef STORMBYTE_ENABLE_SQLITE
 	#include <StormByte/database/sqlite/row.hxx>
 
+	#include <cstdint>
 	#include <memory>
 	#include <optional>
 	#include <string>
@@ -19,7 +20,7 @@
 				~PreparedSTMT() noexcept;
 
 				void 					Bind(const int&, const void*) noexcept; // Sintactic sugar for bind NULL
-				void 					Bind(const int&, const std::optional<int>&) noexcept;
+				void					Bind(const int&, const std::optional<int64_t>&) noexcept;
 				void 					Bind(const int&, const std::optional<std::string>&) noexcept;
 
 				void 					Reset() noexcept;
