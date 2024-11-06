@@ -76,22 +76,27 @@ void Group::SetString(std::string&&) {
 	throw ValueFailure(*this, Type::String);
 }
 
+bool Group::Exists(const std::string& path) const noexcept {
+	std::queue<std::string> exploded_path = ExplodePath(path);
+	return Exists(exploded_path);
+}
+
 std::shared_ptr<Item> Group::LookUp(const std::string& path) const {
-    std::queue<std::string> result;
-    std::stringstream ss(path);
-    std::string item;
-
-    while (std::getline(ss, item, '/')) {
-        result.push(item);
-    }
-
 	std::shared_ptr<Item> lookup_item;
+	std::queue<std::string> exploded_path = ExplodePath(path);
 	try {
-		lookup_item = LookUp(result);
+		lookup_item = LookUp(exploded_path);
 	} catch(const std::runtime_error&) {
 		throw ItemNotFound(path);
 	}
     return lookup_item;
+}
+
+std::shared_ptr<Item> Group::Child(const std::string& path) const {
+	std::shared_ptr<Item> item;
+	if (m_children.find(path) != m_children.end())
+		item = m_children.at(path);
+	return item;
 }
 
 std::string Group::Serialize(const int& indent_level) const noexcept {
@@ -114,7 +119,7 @@ std::shared_ptr<Item> Group::LookUp(std::queue<std::string>& path) const {
 		std::string item_path = path.front();
 		path.pop();
 
-		if ( m_children.find(item_path) != m_children.end()) {
+		if (m_children.find(item_path) != m_children.end()) {
 			found_item = m_children.at(item_path);
 			if (path.size() == 0)
 				return found_item;
@@ -133,4 +138,35 @@ std::shared_ptr<Item> Group::LookUp(std::queue<std::string>& path) const {
 		throw std::runtime_error("blasafel"); // Caller will throw the correct exception
 
 	return found_item; // Just to make compiler warning away
+}
+
+bool Group::Exists(std::queue<std::string>& path) const noexcept {
+	bool found = false;
+	if (path.size() > 0) {
+		std::string item_path = path.front();
+		path.pop();
+
+		if (m_children.find(item_path) != m_children.end()) {
+			std::shared_ptr<Item> item = m_children.at(item_path);
+			if (path.size() == 0)
+				found = true;
+			else if (item->GetType() != Item::Type::Group)
+				found = false;
+			else
+				found = std::dynamic_pointer_cast<Group>(item)->Exists(path);
+		}
+	}
+	return found;
+}
+
+std::queue<std::string> Group::ExplodePath(const std::string& path) const noexcept {
+	std::queue<std::string> result;
+    std::stringstream ss(path);
+    std::string item;
+
+    while (std::getline(ss, item, '/')) {
+        result.push(item);
+    }
+
+	return result;
 }

@@ -23,6 +23,9 @@ namespace StormByte::Config {
 			void 					Read();
 			void					ReadFromString(const std::string&);
 			void 					Write();
+
+			std::shared_ptr<Item>	Child(const std::string&) const;
+			bool					Exists(const std::string&) const noexcept;
 			std::shared_ptr<Item>	LookUp(const std::string&) const;
 
 		protected:

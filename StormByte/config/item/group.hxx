@@ -27,6 +27,8 @@ namespace StormByte::Config {
 			void					SetString(const std::string&) override;
 			void					SetString(std::string&&) override;
 
+			std::shared_ptr<Item>	Child(const std::string&) const;
+			bool					Exists(const std::string&) const noexcept;
 			std::shared_ptr<Item>	LookUp(const std::string&) const;
 
 			std::string				Serialize(const int&) const noexcept override;
@@ -34,6 +36,8 @@ namespace StormByte::Config {
 		private:
 			std::shared_ptr<Item>	Clone() override;
 			std::shared_ptr<Item>	LookUp(std::queue<std::string>&) const;
+			bool					Exists(std::queue<std::string>&) const noexcept;
+			std::queue<std::string> ExplodePath(const std::string&) const noexcept;
 
 			std::map<std::string, std::shared_ptr<Item>> m_children;
 	};

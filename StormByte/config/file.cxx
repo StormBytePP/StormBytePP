@@ -80,6 +80,14 @@ void File::Write() {
 	file.close();
 }
 
+std::shared_ptr<Item> File::Child(const std::string& path) const {
+	return m_root->Child(path);
+}
+
+bool File::Exists(const std::string& path) const noexcept {
+	return m_root->Exists(path);
+}
+
 std::shared_ptr<Item> File::LookUp(const std::string& path) const {
 	return m_root->LookUp(path);
 }
