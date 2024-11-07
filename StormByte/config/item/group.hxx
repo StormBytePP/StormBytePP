@@ -10,8 +10,6 @@ namespace StormByte::Config {
 		friend class File;
 		using Storage = std::map<std::string, std::shared_ptr<Item>>;
 		public:
-			class iterator;
-			class const_iterator;
 			Group(const std::string&);
 			Group(std::string&&);
 			Group(const Group&);

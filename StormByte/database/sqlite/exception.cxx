@@ -9,8 +9,8 @@ Exception::Exception(const std::string& msg):System::Exception(msg) {}
 Exception::Exception(std::string&& msg) noexcept:System::Exception(std::move(msg)) {}
 
 WrongResultType::WrongResultType(const Type& source_type, const Type& asked_type):
-Exception("Wrong value type: Requested " + std::move(type_to_string(asked_type)
-	+ " whereas contained type is " + std::move(type_to_string(source_type)))) {}
+Exception("Wrong value type: Requested " + type_to_string(asked_type)
+	+ " whereas contained type is " + type_to_string(source_type)) {}
 
 std::string WrongResultType::type_to_string(const Type& type) const {
 	std::string t = "";
