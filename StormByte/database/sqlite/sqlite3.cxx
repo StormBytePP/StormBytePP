@@ -53,7 +53,7 @@ void SQLite3::rollback_transaction() {
 }
 
 std::shared_ptr<PreparedSTMT> SQLite3::prepare_sentence(const std::string& name, const std::string& query) {
-	std::shared_ptr<PreparedSTMT> stmt = std::make_shared<PreparedSTMT>(std::move(PreparedSTMT(query)));
+	std::shared_ptr<PreparedSTMT> stmt = std::make_shared<PreparedSTMT>(PreparedSTMT(query));
 	sqlite3_prepare_v2( m_database, stmt->m_query.c_str(), static_cast<int>(stmt->m_query.length()), &stmt->m_stmt, nullptr);
 	if (!stmt->m_stmt)
 		throw QueryError("Prepared sentence " + name + " can not be loaded\n" + last_error());
