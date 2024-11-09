@@ -7,7 +7,6 @@
 #include <sstream>
 
 using namespace StormByte::Config;
-using Storage = std::map<std::string, std::shared_ptr<Item>>;
 
 Group::Group(const std::string& name):
 Item(Type::Group, name) {}
@@ -29,14 +28,6 @@ Group& Group::operator=(const Group& gr) {
 	}
 	return *this;
 }
-
-Storage::iterator Group::Begin() noexcept { return m_children.begin(); }
-
-Storage::const_iterator Group::Begin() const noexcept { return m_children.begin(); }
-
-Storage::iterator Group::End() noexcept { return m_children.end(); }
-
-Storage::const_iterator Group::End() const noexcept { return m_children.end(); }
 
 Group& Group::AsGroup() {
 	return *this;
@@ -194,4 +185,108 @@ std::queue<std::string> Group::ExplodePath(const std::string& path) const noexce
     }
 
 	return result;
+}
+
+Group::Iterator& Group::Iterator::operator++() noexcept {
+	++m_it;
+	return *this;
+}
+
+Group::Iterator Group::Iterator::operator++(int) noexcept {
+	Iterator it = *this;
+	m_it++;
+	return it;
+}
+
+Group::Iterator& Group::Iterator::operator--() noexcept {
+	--m_it;
+	return *this;
+}
+
+Group::Iterator Group::Iterator::operator--(int) noexcept {
+	Iterator it = *this;
+	m_it--;
+	return it;
+}
+
+bool Group::Iterator::operator==(const Iterator& it) const noexcept {
+	return m_it == it.m_it;
+}
+
+bool Group::Iterator::operator!=(const Iterator& it) const noexcept {
+	return m_it != it.m_it;
+}
+
+Item* const Group::Iterator::operator->() noexcept {
+	return m_it->second.operator->();
+}
+
+Group::Const_Iterator& Group::Const_Iterator::operator++() noexcept {
+	++m_it;
+	return *this;
+}
+
+Group::Const_Iterator Group::Const_Iterator::operator++(int) noexcept {
+	Const_Iterator it = *this;
+	m_it++;
+	return it;
+}
+
+Group::Const_Iterator& Group::Const_Iterator::operator--() noexcept {
+	--m_it;
+	return *this;
+}
+
+Group::Const_Iterator Group::Const_Iterator::operator--(int) noexcept {
+	Const_Iterator it = *this;
+	m_it--;
+	return it;
+}
+
+bool Group::Const_Iterator::operator==(const Const_Iterator& it) const noexcept {
+	return m_it == it.m_it;
+}
+
+bool Group::Const_Iterator::operator!=(const Const_Iterator& it) const noexcept {
+	return m_it != it.m_it;
+}
+
+const Item* Group::Const_Iterator::operator->() const noexcept {
+	return m_it->second.operator->();
+}
+
+Group::Iterator Group::Begin() noexcept {
+	Iterator it;
+	it.m_it = m_children.begin();
+	return it;
+}
+
+Group::Const_Iterator Group::Begin() const noexcept {
+	Const_Iterator it;
+	it.m_it = m_children.begin();
+	return it;
+}
+
+Group::Iterator Group::End() noexcept {
+	Iterator it;
+	it.m_it = m_children.end();
+	return it;
+}
+
+Group::Const_Iterator Group::End() const noexcept {
+	Const_Iterator it;
+	it.m_it = m_children.end();
+	return it;
+}
+
+Group::Const_Iterator Group::CBegin() const noexcept {
+	Const_Iterator it;
+	it.m_it = m_children.cbegin();
+	return it;
+}
+
+Group::Const_Iterator Group::CEnd() const noexcept {
+	Const_Iterator it;
+	it.m_it = m_children.cend();
+	return it;
 }
