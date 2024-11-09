@@ -217,7 +217,7 @@ bool Group::Iterator::operator!=(const Iterator& it) const noexcept {
 	return m_it != it.m_it;
 }
 
-Item* const Group::Iterator::operator->() noexcept {
+Item* Group::Iterator::operator->() noexcept {
 	return m_it->second.operator->();
 }
 

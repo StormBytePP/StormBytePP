@@ -53,7 +53,7 @@ namespace StormByte::Config {
 					Iterator operator--(int) noexcept;
 					bool operator==(const Iterator&) const noexcept;
 					bool operator!=(const Iterator&) const noexcept;
-					Item* const operator->() noexcept;
+					Item* operator->() noexcept;
 					Item operator*() noexcept = delete;
 
 				private:
