@@ -1,5 +1,7 @@
 #pragma once
 
+#include <StormByte/system/definitions.h>
+
 #ifdef WINDOWS
 	#ifdef StormByte_EXPORTS
 		#define STORMBYTE_PUBLIC	__declspec(dllexport)
