@@ -38,7 +38,7 @@ void File::Read() {
 	std::ifstream file;
 	file.open(m_file, std::ios::in);
 	if (file.fail())
-		throw FileIOError(m_file.string(), "read");
+		throw System::FileIOError(m_file, System::FileIOError::Read);
 
 	Parser parser(std::move(file), Parser::GroupMode::Root);
 	std::vector<Parser::Content> parsed_content = parser.Parse();
@@ -66,7 +66,7 @@ void File::Write() {
 	std::ofstream file;
 	file.open(m_file, std::ios::out);
 	if (file.fail())
-		throw FileIOError(m_file.string(), "write");
+		throw System::FileIOError(m_file, System::FileIOError::Write);
 	
 	for (auto it = m_root->m_children.rbegin(); it != m_root->m_children.rend(); it++)
 		file << it->second->Serialize(0) << "\n";

@@ -8,6 +8,8 @@ set(STORMBYTE_SOURCES
 	${STORMBYTE_DIR}/StormByte/config/item/value.cxx
 	${STORMBYTE_DIR}/StormByte/config/item/value/integer.cxx
 	${STORMBYTE_DIR}/StormByte/config/item/value/string.cxx
+	${STORMBYTE_DIR}/StormByte/log/file.cxx
+	${STORMBYTE_DIR}/StormByte/log/logger.cxx
 	${STORMBYTE_DIR}/StormByte/system/exception.cxx
 	${STORMBYTE_DIR}/StormByte/system/executable.cxx
 	${STORMBYTE_DIR}/StormByte/system/pipe.cxx

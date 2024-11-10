@@ -23,6 +23,7 @@ endif()
 add_subdirectory(thirdparty)
 add_subdirectory(StormByte)
 
+option(BUILD_TEST "Internal: Build test executable" OFF)
 if(BUILD_TEST) # This is internal
 	add_subdirectory(test)
 endif()

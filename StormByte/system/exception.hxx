@@ -2,6 +2,7 @@
 
 #include <StormByte/visibility.h>
 
+#include <filesystem>
 #include <string>
 
 namespace StormByte::System {
@@ -18,5 +19,17 @@ namespace StormByte::System {
 
 		private:
 			std::string m_data;
+	};
+
+	class STORMBYTE_PUBLIC FileIOError final: public Exception {
+		public:
+			enum Operation { Read = 0, Write }; 
+			FileIOError(const std::filesystem::path&, const Operation&);
+			FileIOError(const FileIOError&)				= default;
+			FileIOError& operator=(const FileIOError&)	= default;
+			~FileIOError() noexcept override			= default;
+
+		private:
+			std::string operation_to_string(const Operation&) const noexcept;
 	};
 }

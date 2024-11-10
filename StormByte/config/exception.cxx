@@ -13,9 +13,6 @@ Exception("Try to add/set " + Item::GetTypeAsString(type) + " value to " + item.
 InvalidName::InvalidName(const std::string& name):
 Exception("Invalid name " + name + " given as identifier, only alfanumeric is allowed") {}
 
-FileIOError::FileIOError(const std::string& file, const std::string& operation):
-Exception("File " + file + " can not be opened for " + operation) {}
-
 ParseError::ParseError(const std::string& fragment):
 Exception("Parse error near " + fragment) {}
 
