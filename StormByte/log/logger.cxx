@@ -32,7 +32,8 @@ Logger& Logger::operator<<(const Logger&) noexcept {
 
 void Logger::print_time() const noexcept {
 	auto rawtime = std::time(nullptr);
-    auto timeinfo = *std::localtime(&rawtime);
+    struct tm timeinfo;
+	timeinfo = *std::localtime(&rawtime);
     *m_out << std::put_time(&timeinfo, "%d/%m/%Y %H:%M:%S");
 }
 
