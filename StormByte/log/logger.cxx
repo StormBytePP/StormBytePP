@@ -31,9 +31,9 @@ Logger& Logger::operator<<(const Logger&) noexcept {
 }
 
 void Logger::print_time() const noexcept {
-	auto t = std::time(nullptr);
-    auto tm = *std::localtime(&t);
-    *m_out << std::put_time(&tm, "%d/%m/%Y %H:%M:%S");
+	auto rawtime = std::time(nullptr);
+    auto timeinfo = *std::localtime(&rawtime);
+    *m_out << std::put_time(&timeinfo, "%d/%m/%Y %H:%M:%S");
 }
 
 void Logger::print_level() const noexcept {
