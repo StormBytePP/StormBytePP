@@ -18,7 +18,7 @@ std::string Variable::Expand(const std::string& var) {
 } 
 
 #ifdef WINDOWS
-std::string Path::Expand(const std::wstring& var) {
+std::string Variable::Expand(const std::wstring& var) {
 	return ExpandEnvironmentVariable(var);
 } 
 #endif
