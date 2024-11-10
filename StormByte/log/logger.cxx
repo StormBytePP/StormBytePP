@@ -33,8 +33,13 @@ Logger& Logger::operator<<(const Logger&) noexcept {
 void Logger::print_time() const noexcept {
 	auto rawtime = std::time(nullptr);
     struct tm timeinfo;
+	#ifdef LINUX
 	timeinfo = *std::localtime(&rawtime);
-    *m_out << std::put_time(&timeinfo, "%d/%m/%Y %H:%M:%S");
+	#else
+	// Windows warns about CRT_INSECURE_BLABLABLA
+	localtime_s(&timeinfo, &rawtime);
+	#endif
+	*m_out << std::put_time(&timeinfo, "%d/%m/%Y %H:%M:%S");
 }
 
 void Logger::print_level() const noexcept {
