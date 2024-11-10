@@ -1,5 +1,4 @@
 #include <StormByte/log/logger.hxx>
-#include <StormByte/system/definitions.h>
 
 #include <iostream>
 #include <iomanip>
