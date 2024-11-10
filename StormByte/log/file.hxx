@@ -5,13 +5,13 @@
 #include <filesystem>
 
 namespace StormByte::Log {
-	class STORMBYTE_PUBLIC File final: public Logger {
+	class STORMBYTE_PUBLIC File: public Logger {
 		public:
 			File(const Level&, const std::filesystem::path&);
 			File(const File&&)					= delete;
 			File(File&) noexcept				= default;
 			File& operator=(const File&)		= delete;
 			File& operator=(File&&) noexcept	= default;
-			~File() noexcept override;
+			virtual ~File() noexcept override;
 	};
 }
