@@ -1,6 +1,6 @@
 #pragma once
 
-#include <StormByte/visibility.h>
+#include <StormByte/system/definitions.h>
 
 #include <memory>
 

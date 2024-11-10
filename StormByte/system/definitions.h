@@ -18,3 +18,11 @@
     #define STORMBYTE_PUBLIC		__attribute__ ((visibility ("default")))
     #define STORMBYTE_PRIVATE		__attribute__ ((visibility ("hidden")))
 #endif
+
+#if defined(__clang__)
+#define CLANG
+#elif defined(__GNUC__) || defined(__GNUG__)
+#define GCC
+#elif defined(_MSC_VER)
+#define MSVC
+#endif

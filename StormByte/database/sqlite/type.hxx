@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef STORMBYTE_ENABLE_SQLITE
-	#include <StormByte/visibility.h>
+	#include <StormByte/system/definitions.h>
 
 	namespace StormByte::Database::SQLite {
 		enum class STORMBYTE_PUBLIC Type: unsigned short {
