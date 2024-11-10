@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef STORMBYTE_ENABLE_SQLITE
-	#include <StormByte/system/definitions.h>
+	#include <StormByte/visibility.h>
 
 	#include <filesystem>
 	#include <list>
