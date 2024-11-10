@@ -22,6 +22,10 @@
 
 				virtual bool 							IsNull() const noexcept;
 				template<typename T> const T&			Value() const;
+				template<> const int&					Value<int>() const;
+				template<> const int64_t&				Value<int64_t>() const;
+				template<> const bool&					Value<bool>() const;
+				template<> const std::string&			Value<std::string>() const;
 
 				const Type& 							GetType() const noexcept;
 
