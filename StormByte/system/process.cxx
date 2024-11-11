@@ -1,4 +1,4 @@
-#include <StormByte/system/executable.hxx>
+#include <StormByte/system/process.hxx>
 
 #ifdef LINUX
 #include <sys/wait.h>
@@ -6,44 +6,44 @@
 
 using namespace StormByte::System;
 
-Executable::Executable(const std::filesystem::path& prog, const std::vector<std::string>& args):m_program(prog), m_arguments(args) {
+Process::Process(const std::filesystem::path& prog, const std::vector<std::string>& args):m_program(prog), m_arguments(args) {
 	run();
 }
 
-Executable::Executable(std::filesystem::path&& prog, std::vector<std::string>&& args):m_program(std::move(prog)), m_arguments(std::move(args)) {
+Process::Process(std::filesystem::path&& prog, std::vector<std::string>&& args):m_program(std::move(prog)), m_arguments(std::move(args)) {
 	run();
 }
 
-Executable::~Executable() noexcept {
+Process::~Process() noexcept {
 	wait();
 }
 
-Executable& Executable::operator>>(Executable& exe) {
+Process& Process::operator>>(Process& exe) {
 	consume_and_forward(exe);
 	return exe;
 }
 
-std::string& Executable::operator>>(std::string& data) {
+std::string& Process::operator>>(std::string& data) {
 	m_pstdout >> data;
 	return data;
 }
 
-std::ostream& StormByte::System::operator<<(std::ostream& os, const Executable& exe) {
+std::ostream& StormByte::System::operator<<(std::ostream& os, const Process& exe) {
 	std::string data;
 	exe.m_pstdout >> data;
 	return os << data;
 }
 
-Executable& Executable::operator<<(const std::string& data) {
+Process& Process::operator<<(const std::string& data) {
 	m_pstdin << data;
 	return *this;
 }
 
-void Executable::operator<<(const System::_EoF&) {
+void Process::operator<<(const System::_EoF&) {
 	m_pstdin.close_write();
 }
 
-void Executable::run() {
+void Process::run() {
 	#ifdef LINUX
 	m_pid = fork();
 
@@ -121,12 +121,12 @@ void Executable::run() {
 	#endif
 }
 
-void Executable::send(const std::string& str) {
+void Process::send(const std::string& str) {
 	m_pstdin << str;
 }
 
 #ifdef LINUX
-int Executable::wait() noexcept {
+int Process::wait() noexcept {
 	int status;
 	if (m_forwarder) {
 		m_forwarder->join();
@@ -136,11 +136,11 @@ int Executable::wait() noexcept {
 	return WEXITSTATUS(status);
 }
 
-pid_t Executable::get_pid() noexcept {
+pid_t Process::get_pid() noexcept {
 	return m_pid;
 }
 #else
-DWORD Executable::wait() noexcept {
+DWORD Process::wait() noexcept {
 	DWORD status;
 	if (m_forwarder) {
 		m_forwarder->join();
@@ -154,13 +154,13 @@ DWORD Executable::wait() noexcept {
 	return status;
 }
 
-PROCESS_INFORMATION Executable::get_pid() {
+PROCESS_INFORMATION Process::get_pid() {
 	return m_piProcInfo;
 }
 #endif
 
 #ifdef LINUX
-void Executable::consume_and_forward(Executable& exec) {
+void Process::consume_and_forward(Process& exec) {
 	m_forwarder = std::make_unique<std::thread>(
 		[&]{
 			std::vector<char> buffer;
@@ -194,7 +194,7 @@ void Executable::consume_and_forward(Executable& exec) {
 	);
 }
 #else
-void Executable::consume_and_forward(Executable& exec) {
+void Process::consume_and_forward(Process& exec) {
 	m_forwarder = std::make_unique<std::thread>(
 		[&]{
 			DWORD status;
@@ -220,7 +220,7 @@ void Executable::consume_and_forward(Executable& exec) {
 #endif
 
 #ifdef WINDOWS
-std::wstring Executable::full_command() const {
+std::wstring Process::full_command() const {
 	std::stringstream ss;
 
 	std::vector<std::string> full = { m_program.string() };

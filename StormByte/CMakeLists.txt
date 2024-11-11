@@ -11,8 +11,8 @@ set(STORMBYTE_SOURCES
 	${STORMBYTE_DIR}/StormByte/log/file.cxx
 	${STORMBYTE_DIR}/StormByte/log/logger.cxx
 	${STORMBYTE_DIR}/StormByte/system/exception.cxx
-	${STORMBYTE_DIR}/StormByte/system/executable.cxx
 	${STORMBYTE_DIR}/StormByte/system/pipe.cxx
+	${STORMBYTE_DIR}/StormByte/system/process.cxx
 	${STORMBYTE_DIR}/StormByte/system/variable.cxx
 	${STORMBYTE_DIR}/StormByte/system/worker.cxx
 )

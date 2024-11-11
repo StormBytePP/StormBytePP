@@ -21,7 +21,9 @@ namespace StormByte::System {
 
 			Pipe();
 			Pipe(const Pipe&)				= delete;
+			Pipe(Pipe&&)					= default;
 			Pipe& operator=(const Pipe&)	= delete;
+			Pipe& operator=(Pipe&&)			= default;
 			~Pipe() noexcept;
 
 			#ifdef LINUX

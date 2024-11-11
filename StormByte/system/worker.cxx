@@ -1,6 +1,6 @@
-#include <StormByte/system/executable.hxx>
+#include <StormByte/system/process.hxx>
 #include <StormByte/system/worker.hxx>
 
 using namespace StormByte::System;
 
-Worker::Worker(std::unique_ptr<Executable>&& exec):m_executable(std::move(exec)) {}
+Worker::Worker(std::unique_ptr<Process>&& exec):m_executable(std::move(exec)) {}

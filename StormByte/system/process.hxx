@@ -13,15 +13,15 @@
 namespace StormByte::System {
 	struct {} typedef _EoF;
 	static constexpr _EoF EoF = {};
-	class STORMBYTE_PUBLIC Executable {
+	class STORMBYTE_PUBLIC Process {
 		public:
-			Executable(const std::filesystem::path& prog, const std::vector<std::string>& args = std::vector<std::string>());
-			Executable(std::filesystem::path&&, std::vector<std::string>&&);
-			Executable(const Executable&)				= delete;
-			Executable(Executable&&)					= delete;
-			Executable& operator=(const Executable&)	= delete;
-			Executable& operator=(Executable&&)			= delete;
-			virtual ~Executable() noexcept;
+			Process(const std::filesystem::path& prog, const std::vector<std::string>& args = std::vector<std::string>());
+			Process(std::filesystem::path&&, std::vector<std::string>&&);
+			Process(const Process&)				= delete;
+			Process(Process&&)					= default;
+			Process& operator=(const Process&)	= delete;
+			Process& operator=(Process&&)		= default;
+			virtual ~Process() noexcept;
 			#ifdef LINUX
 			int wait() noexcept;
 			pid_t get_pid() noexcept;
@@ -30,10 +30,10 @@ namespace StormByte::System {
 			PROCESS_INFORMATION get_pid();
 			#endif
 
-			Executable& operator>>(Executable&);
+			Process& operator>>(Process&);
 			std::string& operator>>(std::string&);
-			friend std::ostream& operator<<(std::ostream&, const Executable&);
-			Executable& operator<<(const std::string&);
+			friend std::ostream& operator<<(std::ostream&, const Process&);
+			Process& operator<<(const std::string&);
 			void operator<<(const System::_EoF&);
 
 		protected:
@@ -48,7 +48,7 @@ namespace StormByte::System {
 		private:
 			void send(const std::string&);
 			void run();
-			void consume_and_forward(Executable&);
+			void consume_and_forward(Process&);
 			#ifdef WINDOWS
 			std::wstring full_command() const;
 			#endif
@@ -57,5 +57,5 @@ namespace StormByte::System {
 			std::vector<std::string> m_arguments;
 			std::unique_ptr<std::thread> m_forwarder;
 	};
-	std::ostream& operator<<(std::ostream&, const Executable&);
+	std::ostream& operator<<(std::ostream&, const Process&);
 }
