@@ -6,16 +6,19 @@
 
 using namespace StormByte::System;
 
-Process::Process(const std::filesystem::path& prog, const std::vector<std::string>& args):m_program(prog), m_arguments(args) {
+Process::Process(const std::filesystem::path& prog, const std::vector<std::string>& args):m_program(prog),
+m_arguments(args), m_status(Status::Stopped) {
 	run();
 }
 
-Process::Process(std::filesystem::path&& prog, std::vector<std::string>&& args):m_program(std::move(prog)), m_arguments(std::move(args)) {
+Process::Process(std::filesystem::path&& prog, std::vector<std::string>&& args):m_program(std::move(prog)),
+m_arguments(std::move(args)), m_status(Status::Stopped) {
 	run();
 }
 
 Process::~Process() noexcept {
 	wait();
+	m_status = Status::Stopped;
 }
 
 Process& Process::operator>>(Process& exe) {
@@ -72,6 +75,8 @@ void Process::run() {
 		exit(0);
 	}
 	else {
+		m_status = Status::Running;
+
 		/* STDIN: Parent writes to STDIN but does not read from */
 		m_pstdin.close_read();
 
@@ -107,6 +112,8 @@ void Process::run() {
 						NULL,				// use parent's current directory 
 						&m_siStartInfo,		// STARTUPINFO pointer 
 						&m_piProcInfo)) {
+		m_status = Status::Running;
+
 		// Set the rest of handles not inheritable by other execs
 		m_pstdout.set_write_handle_information(HANDLE_FLAG_INHERIT, 0);
 		m_pstderr.set_write_handle_information(HANDLE_FLAG_INHERIT, 0);
@@ -133,6 +140,7 @@ int Process::wait() noexcept {
 		m_forwarder.reset();
 	}
 	waitpid(m_pid, &status, 0);
+	m_status = Status::Stopped;
 	return WEXITSTATUS(status);
 }
 
@@ -151,6 +159,7 @@ DWORD Process::wait() noexcept {
 
 	CloseHandle(m_piProcInfo.hProcess);
 	CloseHandle(m_piProcInfo.hThread);
+	m_status = Status::Stopped;
 	return status;
 }
 
@@ -158,6 +167,41 @@ PROCESS_INFORMATION Process::get_pid() {
 	return m_piProcInfo;
 }
 #endif
+
+bool Process::ping() noexcept {
+	bool result = false;
+	if (m_status == Status::Running) {
+		int status;
+		waitpid(m_pid, &status, WNOHANG);
+		if (WIFEXITED(status) || WIFSIGNALED(status)) {
+			result = true;
+		}
+		else {
+			m_status = Status::Stopped;
+		}
+	}
+	return result;
+}
+
+void Process::pause() noexcept {
+	if (m_status != Status::Running || !ping())
+		return;
+
+	kill(m_pid, SIGSTOP);
+	m_status = Status::Paused;
+}
+
+void Process::resume() noexcept {
+	if (m_status != Status::Paused)
+		return;
+
+	kill(m_pid, SIGCONT);
+	m_status = Status::Running;
+}
+
+const Process::Status& Process::get_status() const noexcept {
+	return m_status;
+}
 
 #ifdef LINUX
 void Process::consume_and_forward(Process& exec) {

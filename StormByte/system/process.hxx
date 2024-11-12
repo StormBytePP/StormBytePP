@@ -22,6 +22,7 @@ namespace StormByte::System {
 			Process& operator=(const Process&)	= delete;
 			Process& operator=(Process&&)		= default;
 			virtual ~Process() noexcept;
+			enum class Status { Stopped, Running, Paused };
 			#ifdef LINUX
 			int wait() noexcept;
 			pid_t get_pid() noexcept;
@@ -29,6 +30,10 @@ namespace StormByte::System {
 			DWORD wait() noexcept;
 			PROCESS_INFORMATION get_pid();
 			#endif
+			bool ping() noexcept;
+			void pause() noexcept;
+			void resume() noexcept;
+			const Status& get_status() const noexcept;
 
 			Process& operator>>(Process&);
 			std::string& operator>>(std::string&);
@@ -44,6 +49,7 @@ namespace StormByte::System {
 			PROCESS_INFORMATION m_piProcInfo;
 			#endif
 			System::Pipe m_pstdout, m_pstdin, m_pstderr;
+			Status m_status;
 			
 		private:
 			void send(const std::string&);
