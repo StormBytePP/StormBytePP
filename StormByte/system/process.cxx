@@ -6,13 +6,13 @@
 
 using namespace StormByte::System;
 
-Process::Process(const std::filesystem::path& prog, const std::vector<std::string>& args):m_program(prog),
-m_arguments(args), m_status(Status::Stopped) {
+Process::Process(const std::filesystem::path& prog, const std::vector<std::string>& args):
+m_status(Status::Stopped), m_program(prog), m_arguments(args) {
 	run();
 }
 
-Process::Process(std::filesystem::path&& prog, std::vector<std::string>&& args):m_program(std::move(prog)),
-m_arguments(std::move(args)), m_status(Status::Stopped) {
+Process::Process(std::filesystem::path&& prog, std::vector<std::string>&& args):
+m_status(Status::Stopped), m_program(std::move(prog)), m_arguments(std::move(args)) {
 	run();
 }
 
